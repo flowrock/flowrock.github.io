@@ -4,23 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Regular Expression Matching | Flow Rock</title>
+    <title>纽约，世界经济之都、时尚之都 | Flow Rock</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Ruoyan Liu">
     
 
     
-    <meta name="description" content="Problem DescriptionImplement wildcard pattern matching with support for ‘?’ and ‘‘.‘?’ Matches any single character.‘‘ Matches any sequence of characters (including the empty sequence).The matching sh">
+    <meta name="description" content="在纽约读书怎能不记录下这座城市的魅力。作为一个多世纪全球中心的苹果城，如今依然焕发无穷生机。也许从现代城市的角度看，19、20世纪修建的高楼大厦已略显沧桑，但这正是纽约独有的标签，使其魅力永驻。我一直渴望用镜头记录这座城市，作为求学期间最美好的回忆。在拍到二手Nikon D800的机身后，我迫不及待地去踩点，将这座城市收录进镜头中。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Regular Expression Matching">
-<meta property="og:url" content="http://www.flowrocky.com/2015/09/30/Regular-Expression-Matching/index.html">
+<meta property="og:title" content="纽约，世界经济之都、时尚之都">
+<meta property="og:url" content="http://www.flowrocky.com/2015/09/30/Manhattan/index.html">
 <meta property="og:site_name" content="Flow Rock">
-<meta property="og:description" content="Problem DescriptionImplement wildcard pattern matching with support for ‘?’ and ‘‘.‘?’ Matches any single character.‘‘ Matches any sequence of characters (including the empty sequence).The matching sh">
-<meta property="og:updated_time" content="2015-09-30T15:28:32.000Z">
+<meta property="og:description" content="在纽约读书怎能不记录下这座城市的魅力。作为一个多世纪全球中心的苹果城，如今依然焕发无穷生机。也许从现代城市的角度看，19、20世纪修建的高楼大厦已略显沧桑，但这正是纽约独有的标签，使其魅力永驻。我一直渴望用镜头记录这座城市，作为求学期间最美好的回忆。在拍到二手Nikon D800的机身后，我迫不及待地去踩点，将这座城市收录进镜头中。">
+<meta property="og:image" content="https://farm6.staticflickr.com/5798/21218608174_d76db2395b_k.jpg">
+<meta property="og:image" content="https://farm6.staticflickr.com/5794/21854244871_ed944e9077_k.jpg">
+<meta property="og:image" content="https://farm1.staticflickr.com/607/21656825148_26b3c2ea7c_k.jpg">
+<meta property="og:updated_time" content="2015-09-30T20:01:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Regular Expression Matching">
-<meta name="twitter:description" content="Problem DescriptionImplement wildcard pattern matching with support for ‘?’ and ‘‘.‘?’ Matches any single character.‘‘ Matches any sequence of characters (including the empty sequence).The matching sh">
+<meta name="twitter:title" content="纽约，世界经济之都、时尚之都">
+<meta name="twitter:description" content="在纽约读书怎能不记录下这座城市的魅力。作为一个多世纪全球中心的苹果城，如今依然焕发无穷生机。也许从现代城市的角度看，19、20世纪修建的高楼大厦已略显沧桑，但这正是纽约独有的标签，使其魅力永驻。我一直渴望用镜头记录这座城市，作为求学期间最美好的回忆。在拍到二手Nikon D800的机身后，我迫不及待地去踩点，将这座城市收录进镜头中。">
 
     
     <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
@@ -70,14 +73,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/09/30/Regular-Expression-Matching/" title="Regular Expression Matching" itemprop="url">Regular Expression Matching</a>
+      <a href="/2015/09/30/Manhattan/" title="纽约，世界经济之都、时尚之都" itemprop="url">纽约，世界经济之都、时尚之都</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
 		
   <p class="article-time">
-    <time datetime="2015-09-30T15:26:23.000Z" itemprop="datePublished"> Published 2015-09-30</time>
+    <time datetime="2015-09-30T19:28:37.000Z" itemprop="datePublished"> Published 2015-09-30</time>
     
   </p>
 </header>
@@ -86,26 +89,26 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem_Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Idea"><span class="toc-number">2.</span> <span class="toc-text">Idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">3.</span> <span class="toc-text">Solution</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h2 id="Problem_Description"><em>Problem Description</em></h2><p>Implement wildcard pattern matching with support for ‘?’ and ‘<em>‘.<br>‘?’ Matches any single character.<br>‘</em>‘ Matches any sequence of characters (including the empty sequence).<br>The matching should cover the entire input string (not partial).<br>The function prototype should be:<br>bool isMatch(const char <em>s, const char </em>p)<br>Some examples:<br>isMatch(“aa”,”a”) → false<br>isMatch(“aa”,”aa”) → true<br>isMatch(“aaa”,”aa”) → false<br>isMatch(“aa”, “<em>“) → true<br>isMatch(“aa”, “a</em>“) → true<br>isMatch(“ab”, “?<em>“) → true<br>isMatch(“aab”, “c</em>a*b”) → false</p>
-<h2 id="Idea"><em>Idea</em></h2><p>The basic idea to solve this problem is to use dp. Basically, the most easy solution to come up with is using a two dimensional matrix to store dp result, the dimensions of the matrix would be the length of s and p plus 1. Initially, dp[0][0] is set to true. Note i starts from 0 while j starts from 1, this is because for the first iteration, when s is empty, it should also see if the second character of p is <em> or not, if is, then the first character of p is skipped and a the match between an empty s and a x</em> like p should be true. One observation is that when meets a <em>, if dp[i][j-2] is true, dp[i][j] should be true, because the </em> now means zero preceding. If not, then means * should mean more than zero preceding, or there is a mismatch. To check, see dp[i-1][j] is valid or not, if valid, check character s[i-1] and p[j-1] to see they are a match.</p>
-<h2 id="Solution"><em>Solution</em></h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isMatch</span><span class="params">(String s, String p)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> slen = s.length(), plen = p.length();</span><br><span class="line">	<span class="keyword">boolean</span>[][] dp = <span class="keyword">new</span> <span class="keyword">boolean</span>[slen+<span class="number">1</span>][plen+<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;slen+<span class="number">1</span>; i++)</span><br><span class="line">		Arrays.fill(dp[i], <span class="keyword">false</span>);</span><br><span class="line">	dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;=slen; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;=plen; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (p.charAt(j-<span class="number">1</span>) == <span class="string">'*'</span>)</span><br><span class="line">				dp[i][j] = dp[i][j-<span class="number">2</span>] || </span><br><span class="line">				(i&gt;<span class="number">0</span> &amp;&amp; dp[i-<span class="number">1</span>][j] &amp;&amp; </span><br><span class="line">				(s.charAt(i-<span class="number">1</span>)==p.charAt(j-<span class="number">2</span>) || </span><br><span class="line">				p.charAt(j-<span class="number">2</span>)==<span class="string">'.'</span>));</span><br><span class="line">			<span class="keyword">else</span> </span><br><span class="line">				dp[i][j] = i&gt;<span class="number">0</span> &amp;&amp; dp[i-<span class="number">1</span>][j-<span class="number">1</span>] &amp;&amp; </span><br><span class="line">				(s.charAt(i-<span class="number">1</span>)==p.charAt(j-<span class="number">1</span>) || </span><br><span class="line">				p.charAt(j-<span class="number">1</span>)==<span class="string">'.'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dp[slen][plen];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  
+		<p>在纽约读书怎能不记录下这座城市的魅力。作为一个多世纪全球中心的苹果城，如今依然焕发无穷生机。也许从现代城市的角度看，19、20世纪修建的高楼大厦已略显沧桑，但这正是纽约独有的标签，使其魅力永驻。<br>我一直渴望用镜头记录这座城市，作为求学期间最美好的回忆。在拍到二手Nikon D800的机身后，我迫不及待地去踩点，将这座城市收录进镜头中。</p>
+<p><img src="https://farm6.staticflickr.com/5798/21218608174_d76db2395b_k.jpg" alt=""><br><img src="https://farm6.staticflickr.com/5794/21854244871_ed944e9077_k.jpg" alt=""><br><img src="https://farm1.staticflickr.com/607/21656825148_26b3c2ea7c_k.jpg" alt=""></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/coding/">coding</a>
+  <a class="article-category-link" href="/categories/life/">life</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/algorithm/">algorithm</a><a href="/tags/dp/">dp</a><a href="/tags/leetcode/">leetcode</a>
+  <span></span> <a href="/tags/New-York/">New York</a><a href="/tags/cityscape/">cityscape</a><a href="/tags/photo/">photo</a>
   </div>
 
 </div>
@@ -114,7 +117,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.flowrocky.com/2015/09/30/Regular-Expression-Matching/" data-title="Regular Expression Matching | Flow Rock" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.flowrocky.com/2015/09/30/Manhattan/" data-title="纽约，世界经济之都、时尚之都 | Flow Rock" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -127,19 +130,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/09/30/Manhattan/" title="纽约，世界经济之都、时尚之都">
-  <strong>上一篇：</strong><br/>
-  <span>
-  纽约，世界经济之都、时尚之都</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/09/30/Largest-Rectangle-in-Histogram/"  title="Largest Rectangle in Histogram">
+<a href="/2015/09/30/Regular-Expression-Matching/"  title="Regular Expression Matching">
  <strong>下一篇：</strong><br/> 
- <span>Largest Rectangle in Histogram
+ <span>Regular Expression Matching
 </span>
 </a>
 </div>
@@ -160,7 +155,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem_Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Idea"><span class="toc-number">2.</span> <span class="toc-text">Idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">3.</span> <span class="toc-text">Solution</span></a></li></ol>
+ 
  
   </div>
 
