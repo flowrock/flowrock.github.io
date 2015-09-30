@@ -1,33 +1,31 @@
 
-  
-    <!DOCTYPE HTML>
+ <!DOCTYPE HTML>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   
-    <title>About Me | Flow Rock</title>
+    <title>Largest Rectangle in Histogram | Flow Rock</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Ruoyan Liu">
     
 
     
-    <meta name="description" content="Ruoyan LiuCurrently an EE master student at Polytechnic School of Engineering, NYU. 
-Primary interests in computer networking, machine learing, big data and mobile development. 
-Love and good at vario">
-<meta property="og:type" content="website">
-<meta property="og:title" content="About Me">
-<meta property="og:url" content="http://www.flowrocky.com/about/index.html">
+    <meta name="description" content="Problem DescriptionGiven n non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
+        Above is a histo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Largest Rectangle in Histogram">
+<meta property="og:url" content="http://www.flowrocky.com/2015/09/30/Largest-Rectangle-in-Histogram/index.html">
 <meta property="og:site_name" content="Flow Rock">
-<meta property="og:description" content="Ruoyan LiuCurrently an EE master student at Polytechnic School of Engineering, NYU. 
-Primary interests in computer networking, machine learing, big data and mobile development. 
-Love and good at vario">
-<meta property="og:updated_time" content="2015-09-30T04:15:59.000Z">
+<meta property="og:description" content="Problem DescriptionGiven n non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
+        Above is a histo">
+<meta property="og:image" content="http://www.leetcode.com/wp-content/uploads/2012/04/histogram.png">
+<meta property="og:image" content="http://www.leetcode.com/wp-content/uploads/2012/04/histogram_area.png">
+<meta property="og:updated_time" content="2015-09-30T15:27:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="About Me">
-<meta name="twitter:description" content="Ruoyan LiuCurrently an EE master student at Polytechnic School of Engineering, NYU. 
-Primary interests in computer networking, machine learing, big data and mobile development. 
-Love and good at vario">
+<meta name="twitter:title" content="Largest Rectangle in Histogram">
+<meta name="twitter:description" content="Problem DescriptionGiven n non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
+        Above is a histo">
 
     
     <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
@@ -37,9 +35,9 @@ Love and good at vario">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
-      <body>
-        <header>
-          
+  <body>
+    <header>
+      
 <div>
 		
 			<div id="textlogo">
@@ -69,35 +67,54 @@ Love and good at vario">
 				</ul>
 			</nav>			
 </div>
-        </header>
-        <div id="container">
-          <div id="main" class="page" itemscope itemprop="blogPost">
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
   
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/about/index.html" title="About Me" itemprop="url">About Me</a>
+      <a href="/2015/09/30/Largest-Rectangle-in-Histogram/" title="Largest Rectangle in Histogram" itemprop="url">Largest Rectangle in Histogram</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
 		
   <p class="article-time">
-    <time datetime="2015-09-30T04:15:59.000Z" itemprop="datePublished"> Published 2015-09-30</time>
+    <time datetime="2015-09-30T14:30:19.000Z" itemprop="datePublished"> Published 2015-09-30</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<h2 id="Ruoyan_Liu">Ruoyan Liu</h2><p>Currently an EE master student at Polytechnic School of Engineering, NYU. </p>
-<p>Primary interests in computer networking, machine learing, big data and mobile development. </p>
-<p>Love and good at various sports. Love traveling, especially to the wild.</p>
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem_Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Idea"><span class="toc-number">2.</span> <span class="toc-text">Idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">3.</span> <span class="toc-text">Solution</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="Problem_Description"><em>Problem Description</em></h2><p>Given n non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.</p>
+<figure><br>    <img src="http://www.leetcode.com/wp-content/uploads/2012/04/histogram.png" style="display:block;margin:auto"><br>    <figcaption>Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3].</figcaption><br></figure><br><figure><br>    <img src="http://www.leetcode.com/wp-content/uploads/2012/04/histogram_area.png" style="display:block;margin:auto"><br>    <figcaption>The largest rectangle is shown in the shaded area, which has area = 10 unit.</figcaption><br></figure>
+
+<h2 id="Idea"><em>Idea</em></h2><p>Use a stack to keep the indexes which corresponding heights are in ascending mode. Once a smaller height is found, go back popping heights from stack and calculate the max histogram until the height on top of stack is smaller than the current. Stack changes for the example {2,1,5,6,2,3}: a. 2; b. null; c. 1; d. 1,5; e. 1,5,6; f. 1,5; g. 1,2; h. 1,2,3; Finally, the stack will be emptied and get the max. Note that the stack is always in ascending mode.</p>
+<h2 id="Solution"><em>Solution</em></h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">	Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>, i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i&lt;height.length) &#123;</span><br><span class="line">        <span class="keyword">if</span> (stack.isEmpty() || height[i] &gt;= height[stack.peek()]) </span><br><span class="line">            stack.push(i++);        </span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> t = stack.pop();</span><br><span class="line">            max = Math.max(max, height[t]*(stack.isEmpty()?i:i-stack.peek()-<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">int</span> t = stack.pop();</span><br><span class="line">        max = Math.max(max, height[t]*(stack.isEmpty()?i:i-stack.peek()-<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/coding/">coding</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/algorithm/">algorithm</a><a href="/tags/leetcode/">leetcode</a>
+  </div>
 
 </div>
 
@@ -105,7 +122,7 @@ Love and good at vario">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.flowrocky.com/about/index.html" data-title="About Me | Flow Rock" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.flowrocky.com/2015/09/30/Largest-Rectangle-in-Histogram/" data-title="Largest Rectangle in Histogram | Flow Rock" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -116,6 +133,19 @@ Love and good at vario">
    	       
 	</article>
 	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/09/30/Regular-Expression-Matching/" title="Regular Expression Matching">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Regular Expression Matching</span>
+</a>
+</div>
+
+
+</nav>
+
 	
 
 <section id="comments" class="comment">
@@ -125,8 +155,64 @@ Love and good at vario">
 </section>
 
 </div>  
-        </div>
-        <footer><div id="footer" >
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem_Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Idea"><span class="toc-number">2.</span> <span class="toc-text">Idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">3.</span> <span class="toc-text">Solution</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/coding/" title="coding">coding<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dp/" title="dp">dp<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
 	
 	<div class="line">
 		<span></span>
@@ -169,7 +255,7 @@ Love and good at vario">
 		</p>
 </div>
 </footer>
-        <script src="/js/jquery-2.0.3.min.js"></script>
+    <script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 <script src="/js/jquery.qrcode-0.12.0.min.js"></script>
@@ -213,8 +299,36 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>
@@ -385,6 +499,5 @@ ga('send', 'pageview');
 
 <!-- Tiny_search End -->
 
-      </body>
-     </html>
-     
+  </body>
+</html>
