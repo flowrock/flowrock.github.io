@@ -4,28 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Largest Rectangle in Histogram | Flow Rock</title>
+    <title>Scramble String | Flow Rock</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Ruoyan Liu">
     
 
     
-    <meta name="description" content="Problem DescriptionGiven n non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
-        Above is a histo">
+    <meta name="description" content="Problem DescriptionGiven a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively.
+Below is one possible representation of s1 = “great”:    great&amp;#1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Largest Rectangle in Histogram">
-<meta property="og:url" content="http://www.flowrocky.com/2015/09/30/Largest-Rectangle-in-Histogram/index.html">
+<meta property="og:title" content="Scramble String">
+<meta property="og:url" content="http://www.flowrocky.com/2015/09/30/Scramble-String/index.html">
 <meta property="og:site_name" content="Flow Rock">
-<meta property="og:description" content="Problem DescriptionGiven n non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
-        Above is a histo">
-<meta property="og:image" content="http://www.leetcode.com/wp-content/uploads/2012/04/histogram.png">
-<meta property="og:image" content="http://www.leetcode.com/wp-content/uploads/2012/04/histogram_area.png">
-<meta property="og:updated_time" content="2015-09-30T21:19:36.000Z">
+<meta property="og:description" content="Problem DescriptionGiven a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively.
+Below is one possible representation of s1 = “great”:    great&amp;#1">
+<meta property="og:updated_time" content="2015-09-30T22:40:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Largest Rectangle in Histogram">
-<meta name="twitter:description" content="Problem DescriptionGiven n non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
-        Above is a histo">
+<meta name="twitter:title" content="Scramble String">
+<meta name="twitter:description" content="Problem DescriptionGiven a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively.
+Below is one possible representation of s1 = “great”:    great&amp;#1">
 
     
     <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
@@ -75,14 +73,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/09/30/Largest-Rectangle-in-Histogram/" title="Largest Rectangle in Histogram" itemprop="url">Largest Rectangle in Histogram</a>
+      <a href="/2015/09/30/Scramble-String/" title="Scramble String" itemprop="url">Scramble String</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
 		
   <p class="article-time">
-    <time datetime="2015-09-30T14:30:19.000Z" itemprop="datePublished"> Published 2015-09-30</time>
+    <time datetime="2015-09-30T21:28:00.000Z" itemprop="datePublished"> Published 2015-09-30</time>
     
   </p>
 </header>
@@ -95,13 +93,18 @@
 		
 		</div>
 		
-		<h2 id="Problem_Description"><em>Problem Description</em></h2><p>Given n non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.</p>
-<figure><br>    <img src="http://www.leetcode.com/wp-content/uploads/2012/04/histogram.png" style="display:block;margin:auto"><br>    <figcaption>Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3].</figcaption><br></figure><br><figure><br>    <img src="http://www.leetcode.com/wp-content/uploads/2012/04/histogram_area.png" style="display:block;margin:auto"><br>    <figcaption>The largest rectangle is shown in the shaded area, which has area = 10 unit.</figcaption><br></figure>
-
-<p>For example, given height = [2,1,5,6,2,3], return 10.</p>
-<h2 id="Idea"><em>Idea</em></h2><p>Use a stack to keep the indexes which corresponding heights are in ascending mode. Once a smaller height is found, go back popping heights from stack and calculate the max histogram until the height on top of stack is smaller than the current. Stack changes for the example {2,1,5,6,2,3}: a. 2; b. null; c. 1; d. 1,5; e. 1,5,6; f. 1,5; g. 1,2; h. 1,2,3; Finally, the stack will be emptied and get the max. Note that the stack is always in ascending mode.</p>
-<h2 id="Solution"><em>Solution</em></h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>, i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i&lt;height.length) &#123;</span><br><span class="line">        <span class="keyword">if</span> (stack.isEmpty() || height[i] &gt;= height[stack.peek()]) </span><br><span class="line">            stack.push(i++);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> t = stack.pop();</span><br><span class="line">            max = Math.max(max, height[t]*(stack.isEmpty()?i:i-stack.peek()-<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">int</span> t = stack.pop();</span><br><span class="line">        max = Math.max(max, height[t]*(stack.isEmpty()?i:i-stack.peek()-<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  
+		<h2 id="Problem_Description"><em>Problem Description</em></h2><p>Given a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively.</p>
+<p>Below is one possible representation of s1 = “great”:<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">    great&#10;   /    \&#10;  gr    eat&#10; / \    /  \&#10;g   r  e   at&#10;           / \&#10;          a   t</span><br></pre></td></tr></table></figure></p>
+<p>To scramble the string, we may choose any non-leaf node and swap its two children.</p>
+<p>For example, if we choose the node “gr” and swap its two children, it produces a scrambled string “rgeat”.<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">    rgeat&#10;   /    \&#10;  rg    eat&#10; / \    /  \&#10;r   g  e   at&#10;           / \&#10;          a   t</span><br></pre></td></tr></table></figure></p>
+<p>We say that “rgeat” is a scrambled string of “great”.</p>
+<p>Similarly, if we continue to swap the children of nodes “eat” and “at”, it produces a scrambled string “rgtae”.<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">    rgtae&#10;   /    \&#10;  rg    tae&#10; / \    /  \&#10;r   g  ta  e&#10;       / \&#10;      t   a</span><br></pre></td></tr></table></figure></p>
+<p>We say that “rgtae” is a scrambled string of “great”.</p>
+<p>Given two strings s1 and s2 of the same length, determine if s2 is a scrambled string of s1.</p>
+<h2 id="Idea"><em>Idea</em></h2><p>This problem is quite useful when judging two molecules that differ in structure but are actually the same. </p>
+<p>A recursive idea is to see if either<br><strong><em>isScramble(s1.substring(0,i),s2.substring(0,i)) &amp;&amp; isScramble(s1.substring(i),s2.substring(i))</em></strong><br>or <strong><em>isScramble(s1.substring(0,i),s2.substring(s2.length()-i)) &amp;&amp; isScramble(s1.substring(i),s2.substring(0,s2.length()-i))</em></strong> is true.</p>
+<p>Analyzing the complexity of the above algorithm leeds to an observation that there exist too many duplicate comparisons, which slow down the algorithm too much. One better solution is to use a map of which key is s1+s2 or s2+s1 to store previous results. In addition, we can further improve the algorithm by pruning before hand. Specifically, we can first verify if the two strings are formed by exactly the same characters to decide if further comparison is needed.</p>
+<h2 id="Solution"><em>Solution</em></h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isScramble</span><span class="params">(String s1, String s2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> isScramble(s1, s2, <span class="keyword">new</span> HashMap&lt;String, Boolean&gt;());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isScramble</span><span class="params">(String s1, String s2, Map&lt;String, Boolean&gt; map)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (s1.equals(s2))</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	<span class="keyword">if</span> (s1.length() != s2.length())</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	<span class="keyword">if</span> (map.containsKey(s1+s2) || map.containsKey(s2+s1))</span><br><span class="line">		<span class="keyword">return</span> map.containsKey(s1+s2)?map.get(s1+s2):map.get(s2+s1);</span><br><span class="line">	Map&lt;Character, Integer&gt; charMap = <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;s1.length(); i++) &#123;</span><br><span class="line">		<span class="keyword">char</span> c = s1.charAt(i);</span><br><span class="line">		<span class="keyword">if</span> (charMap.containsKey(c))</span><br><span class="line">			charMap.put(c, charMap.get(c)+<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			charMap.put(c, <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;s2.length(); i++) &#123;</span><br><span class="line">		<span class="keyword">char</span> c = s2.charAt(i);</span><br><span class="line">		<span class="keyword">if</span> (charMap.containsKey(c)) &#123; </span><br><span class="line">			<span class="keyword">if</span> (charMap.get(c) == <span class="number">0</span>)</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				charMap.put(c, charMap.get(c)-<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> </span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">boolean</span> res = <span class="keyword">false</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;s1.length(); i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (isScramble(s1.substring(<span class="number">0</span>, i), s2.substring(<span class="number">0</span>, i), map) &amp;&amp; </span><br><span class="line">			isScramble(s1.substring(i), s2.substring(i), map))</span><br><span class="line">			res = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (isScramble(s1.substring(<span class="number">0</span>,i), s2.substring(s2.length()-i), map) &amp;&amp;</span><br><span class="line">			isScramble(s1.substring(i), s2.substring(<span class="number">0</span>,s2.length()-i), map))</span><br><span class="line">			res = <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	map.put(s1+s2, res);</span><br><span class="line">	map.put(s2+s1, res);</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -114,7 +117,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/algorithm/">algorithm</a><a href="/tags/leetcode/">leetcode</a>
+  <span></span> <a href="/tags/algorithm/">algorithm</a><a href="/tags/leetcode/">leetcode</a><a href="/tags/recursive/">recursive</a>
   </div>
 
 </div>
@@ -123,7 +126,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.flowrocky.com/2015/09/30/Largest-Rectangle-in-Histogram/" data-title="Largest Rectangle in Histogram | Flow Rock" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.flowrocky.com/2015/09/30/Scramble-String/" data-title="Scramble String | Flow Rock" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -136,14 +139,14 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/09/30/Regular-Expression-Matching/" title="Regular Expression Matching">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Regular Expression Matching</span>
+
+<div class="next">
+<a href="/2015/09/30/Manhattan/"  title="纽约，金融之都、时尚之都">
+ <strong>下一篇：</strong><br/> 
+ <span>纽约，金融之都、时尚之都
+</span>
 </a>
 </div>
-
 
 </nav>
 
