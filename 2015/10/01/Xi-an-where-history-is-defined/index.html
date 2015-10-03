@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://farm6.staticflickr.com/5693/21665479620_545bc91d8b_k.jpg">
 <meta property="og:image" content="https://farm1.staticflickr.com/701/21665684518_1e26851027_k.jpg">
 <meta property="og:image" content="https://farm6.staticflickr.com/5654/21853560035_d85fa640ab_k.jpg">
-<meta property="og:updated_time" content="2015-10-01T19:45:50.000Z">
+<meta property="og:updated_time" content="2015-10-03T15:25:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xi'an, where history is defined">
 <meta name="twitter:description" content="Xi’an is my hometown, one of the most historic and legendary cities in the world. 2200 years ago, the first feudal dynasty of China, Qin, finally unified the country from centuries splintering with it">
@@ -87,13 +87,6 @@
 </header>
 	<div class="article-content">
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
-		
-			
-		
-		</div>
-		
 		<p>Xi’an is my hometown, one of the most historic and legendary cities in the world. 2200 years ago, the first feudal dynasty of China, Qin, finally unified the country from centuries splintering with its unstoppable army, bringing China into completely feudal society from slavery. As the capital of Qin, Xi’an (Chang’an in the past) was always regarded as a special place and became the capital of 13 different dynasties in Chinese history, including the most prosperous dynasty, Tang.</p>
 <p>Today, there are still many historic relics remained in this city, among which Qin Terracotta Warriors and Horses, Tang Daming Palace, Da-Yan Tower and Ming City Wall are the most well known. Countless buried relics and treasures were found during the construction of buildings and subways. More and more tourists around the world are attracted by this ancient while modern city. </p>
 <p>I always feel proud to be a native of Xi’an and feel proud of the glorious and legendary history happened on this land. I wish I could show the charm of this city to more people and let them know more about it. Below are some photos I took along the Ming City Wall, which witnessed the changes of this city for over 600 years. </p>
@@ -133,6 +126,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2015/10/03/Unique-Binary-Search-Trees/" title="Unique Binary Search Trees">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Unique Binary Search Trees</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2015/10/01/Decode-Ways/"  title="Decode Ways">
@@ -155,13 +156,6 @@
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
- 
- 
- 
-  </div>
-
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
@@ -172,7 +166,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/coding/" title="coding">coding<sup>4</sup></a></li>
+			<li><a href="/categories/coding/" title="coding">coding<sup>5</sup></a></li>
 		  
 		
 		  
@@ -189,11 +183,15 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>4</sup></a></li>
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>4</sup></a></li>
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dp/" title="dp">dp<sup>3</sup></a></li>
 			
 		
 			
@@ -205,11 +203,7 @@
 			
 		
 			
-				<li><a href="/tags/dp/" title="dp">dp<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
+				<li><a href="/tags/New-York/" title="New York">New York<sup>1</sup></a></li>
 			
 		
 			
@@ -217,7 +211,7 @@
 			
 		
 			
-				<li><a href="/tags/New-York/" title="New York">New York<sup>1</sup></a></li>
+				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -321,8 +315,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
@@ -521,5 +513,35 @@ ga('send', 'pageview');
 
 <!-- Tiny_search End -->
 
-  </body>
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
 </html>

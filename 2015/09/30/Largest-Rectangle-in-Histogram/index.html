@@ -175,7 +175,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/coding/" title="coding">coding<sup>4</sup></a></li>
+			<li><a href="/categories/coding/" title="coding">coding<sup>5</sup></a></li>
 		  
 		
 		  
@@ -192,11 +192,15 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>4</sup></a></li>
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>4</sup></a></li>
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dp/" title="dp">dp<sup>3</sup></a></li>
 			
 		
 			
@@ -208,11 +212,7 @@
 			
 		
 			
-				<li><a href="/tags/dp/" title="dp">dp<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
+				<li><a href="/tags/New-York/" title="New York">New York<sup>1</sup></a></li>
 			
 		
 			
@@ -220,7 +220,7 @@
 			
 		
 			
-				<li><a href="/tags/New-York/" title="New York">New York<sup>1</sup></a></li>
+				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -524,5 +524,35 @@ ga('send', 'pageview');
 
 <!-- Tiny_search End -->
 
-  </body>
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
 </html>

@@ -19,7 +19,7 @@ Given a">
 <meta property="og:site_name" content="Flow Rock">
 <meta property="og:description" content="Problem DescriptionA message containing letters from A-Z is being encoded to numbers using the following mapping:&amp;#39;A&amp;#39; -&amp;#62; 1&amp;#10;&amp;#39;B&amp;#39; -&amp;#62; 2&amp;#10;...&amp;#10;&amp;#39;Z&amp;#39; -&amp;#62; 26
 Given a">
-<meta property="og:updated_time" content="2015-10-01T17:04:08.000Z">
+<meta property="og:updated_time" content="2015-10-03T22:19:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Decode Ways">
 <meta name="twitter:description" content="Problem DescriptionA message containing letters from A-Z is being encoded to numbers using the following mapping:&amp;#39;A&amp;#39; -&amp;#62; 1&amp;#10;&amp;#39;B&amp;#39; -&amp;#62; 2&amp;#10;...&amp;#10;&amp;#39;Z&amp;#39; -&amp;#62; 26
@@ -101,7 +101,7 @@ Given a">
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">A positive integer n can be represented as summation of 1,2,5, list the number of all different summations.&#10;And the formula is: dp[n] = dp[n-1]+dp[n-2]+dp[n-5]</span><br></pre></td></tr></table></figure>
 <p>However, we also need to consider about the corner cases in this problem. <strong><em>ways[i-2]</em></strong> can be added only when <strong><em>s.substring(i-2,i)</em></strong> is valid. Similarly, <strong><em>ways[i-1]</em></strong> can be added only when <strong><em>s.substring(i-1,i)</em></strong> is valid. For a double-char substring, it is valid when <strong><em>10&lt;=Integer.parseInt(s.substring(i-2,i))&lt;=26</em></strong>. For a single-char substring, it is valid when <strong><em>s.substring(i-1,i)</em></strong> is not <strong><em>0</em></strong>. </p>
 <p>Note that we can quit the iteration by checking if dp[i] is zero, if yes, then there is no valid decoding ways, we can directly return 0;</p>
-<h2 id="Solution"><em>Solution</em></h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numDecodings</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = s.length();</span><br><span class="line">	<span class="keyword">if</span>(n == <span class="number">0</span> || s.charAt(<span class="number">0</span>) == <span class="string">'0'</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(isValid(s.substring(i-<span class="number">1</span>,i)))</span><br><span class="line">            dp[i]+=dp[i-<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(isValid(s.substring(i-<span class="number">2</span>,i)))</span><br><span class="line">            dp[i]+=dp[i-<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">if</span> (dp[i] == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s.charAt(<span class="number">0</span>)==<span class="string">'0'</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">int</span> value = Integer.parseInt(s);</span><br><span class="line">    <span class="keyword">return</span> value&gt;=<span class="number">1</span>&amp;&amp;value&lt;=<span class="number">26</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><em>Solution</em></h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numDecodings</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = s.length();</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span> || s.charAt(<span class="number">0</span>) == <span class="string">'0'</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(isValid(s.substring(i-<span class="number">1</span>,i)))</span><br><span class="line">            dp[i]+=dp[i-<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(isValid(s.substring(i-<span class="number">2</span>,i)))</span><br><span class="line">            dp[i]+=dp[i-<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">if</span> (dp[i] == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s.charAt(<span class="number">0</span>)==<span class="string">'0'</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">int</span> value = Integer.parseInt(s);</span><br><span class="line">    <span class="keyword">return</span> value&gt;=<span class="number">1</span>&amp;&amp;value&lt;=<span class="number">26</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -184,7 +184,7 @@ Given a">
 		<ul>
 		
 		  
-			<li><a href="/categories/coding/" title="coding">coding<sup>4</sup></a></li>
+			<li><a href="/categories/coding/" title="coding">coding<sup>5</sup></a></li>
 		  
 		
 		  
@@ -201,11 +201,15 @@ Given a">
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>4</sup></a></li>
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>4</sup></a></li>
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dp/" title="dp">dp<sup>3</sup></a></li>
 			
 		
 			
@@ -217,11 +221,7 @@ Given a">
 			
 		
 			
-				<li><a href="/tags/dp/" title="dp">dp<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
+				<li><a href="/tags/New-York/" title="New York">New York<sup>1</sup></a></li>
 			
 		
 			
@@ -229,7 +229,7 @@ Given a">
 			
 		
 			
-				<li><a href="/tags/New-York/" title="New York">New York<sup>1</sup></a></li>
+				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -533,5 +533,35 @@ ga('send', 'pageview');
 
 <!-- Tiny_search End -->
 
-  </body>
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
 </html>

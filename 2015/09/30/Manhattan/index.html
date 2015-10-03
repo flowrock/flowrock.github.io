@@ -21,7 +21,7 @@
 我一直希望用镜头记录这座城市，作为在这生活的美好回忆。在拍到二手尼康D800的机身后，我迫不及待地去踩点，试机器。废话不多说，下面是我在天气特别好的某天傍晚，站在曼哈顿大桥拍摄曼哈顿下城的两张夜景。欢迎到">
 <meta property="og:image" content="https://farm6.staticflickr.com/5794/21854244871_60e2aef652_k.jpg">
 <meta property="og:image" content="https://farm1.staticflickr.com/607/21656825148_0b76de38d5_k.jpg">
-<meta property="og:updated_time" content="2015-09-30T23:27:47.000Z">
+<meta property="og:updated_time" content="2015-10-03T15:25:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="纽约，金融之都、时尚之都">
 <meta name="twitter:description" content="在纽约读书怎能不记录下这座城市的魅力。作为一个多世纪全球中心的苹果城，如今依然焕发无穷活力。也许从现代城市的角度看，19、20世纪修建的高楼大厦已略显沧桑，但这正是纽约独有的标签，使其越发迷人。
@@ -87,13 +87,6 @@
   </p>
 </header>
 	<div class="article-content">
-		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
-		
-			
-		
-		</div>
 		
 		<p>在纽约读书怎能不记录下这座城市的魅力。作为一个多世纪全球中心的苹果城，如今依然焕发无穷活力。也许从现代城市的角度看，19、20世纪修建的高楼大厦已略显沧桑，但这正是纽约独有的标签，使其越发迷人。</p>
 <p>我一直希望用镜头记录这座城市，作为在这生活的美好回忆。在拍到二手尼康D800的机身后，我迫不及待地去踩点，试机器。废话不多说，下面是我在天气特别好的某天傍晚，站在曼哈顿大桥拍摄曼哈顿下城的两张夜景。欢迎到<a href="https://www.flickr.com/photos/flowrock/" target="_blank" rel="external">我的flickr</a>多踩踩。</p>
@@ -163,13 +156,6 @@
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
- 
- 
- 
-  </div>
-
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
@@ -180,7 +166,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/coding/" title="coding">coding<sup>4</sup></a></li>
+			<li><a href="/categories/coding/" title="coding">coding<sup>5</sup></a></li>
 		  
 		
 		  
@@ -197,11 +183,15 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>4</sup></a></li>
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>4</sup></a></li>
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dp/" title="dp">dp<sup>3</sup></a></li>
 			
 		
 			
@@ -213,11 +203,7 @@
 			
 		
 			
-				<li><a href="/tags/dp/" title="dp">dp<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
+				<li><a href="/tags/New-York/" title="New York">New York<sup>1</sup></a></li>
 			
 		
 			
@@ -225,7 +211,7 @@
 			
 		
 			
-				<li><a href="/tags/New-York/" title="New York">New York<sup>1</sup></a></li>
+				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -329,8 +315,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
@@ -529,5 +513,35 @@ ga('send', 'pageview');
 
 <!-- Tiny_search End -->
 
-  </body>
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
 </html>
