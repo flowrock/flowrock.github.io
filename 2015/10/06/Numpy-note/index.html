@@ -21,8 +21,8 @@ The dimension of Numpy array can be got u">
 <meta property="og:description" content="array initializationNumpy array object needs to be initialized from list object in python. 
 import numpy as npmy_list1 = [1,2,3]my_array1 = np.array(my_list1)
 The dimension of Numpy array can be got u">
-<meta property="og:image" content="http://www.flowrocky.com/source/_posts/Numpy_note/figure1.png">
-<meta property="og:updated_time" content="2015-10-07T13:12:55.000Z">
+<meta property="og:image" content="http://www.flowrocky.com/figure1.png">
+<meta property="og:updated_time" content="2015-10-07T14:54:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Numpy note">
 <meta name="twitter:description" content="array initializationNumpy array object needs to be initialized from list object in python. 
@@ -93,7 +93,7 @@ The dimension of Numpy array can be got u">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#array_initialization"><span class="toc-number">1.</span> <span class="toc-text">array initialization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#division"><span class="toc-number">2.</span> <span class="toc-text">division</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#indexing,_slicing"><span class="toc-number">3.</span> <span class="toc-text">indexing, slicing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transpose"><span class="toc-number">4.</span> <span class="toc-text">transpose</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Univeral_array_functions"><span class="toc-number">5.</span> <span class="toc-text">Univeral array functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array_processing"><span class="toc-number">6.</span> <span class="toc-text">Array processing</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#array_initialization"><span class="toc-number">1.</span> <span class="toc-text">array initialization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#division"><span class="toc-number">2.</span> <span class="toc-text">division</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#indexing,_slicing"><span class="toc-number">3.</span> <span class="toc-text">indexing, slicing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transpose"><span class="toc-number">4.</span> <span class="toc-text">transpose</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Univeral_array_functions"><span class="toc-number">5.</span> <span class="toc-text">Univeral array functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array_processing"><span class="toc-number">6.</span> <span class="toc-text">Array processing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array_input_and_output"><span class="toc-number">7.</span> <span class="toc-text">Array input and output</span></a></li></ol>
 		
 		</div>
 		
@@ -101,7 +101,7 @@ The dimension of Numpy array can be got u">
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">my_list1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">my_array1 = np.array(my_list1)</span><br></pre></td></tr></table></figure>
 <p>The dimension of Numpy array can be got using <strong>shape</strong> method</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">my_array2 = np.array([my_array1,[<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>]])</span><br><span class="line">my_array2.shape</span><br></pre></td></tr></table></figure>
-<p>This will show the dimension in tuple <code>(2,3)</code></p>
+<p>This will show the dimension in tuple <em>(2,3)</em></p>
 <p>Numpy array/matrix of zeros and ones can be created using <code>np.zeros((5,5))</code> and <code>np.ones([7,3])</code> respectively, note that the argument of zeros() and ones() can be either tuple or list.</p>
 <h2 id="division"><em>division</em></h2><p>The result of division by default is integer. To have float result without transforming number to float, we can import division from <code>__future__</code> package beforehand under python2.7 version. The division will have float result (when result should be float) automatically.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> division</span><br></pre></td></tr></table></figure>
@@ -127,7 +127,23 @@ The dimension of Numpy array can be got u">
 <p><a href="http://docs.scipy.org/doc/numpy/reference/ufuncs.html#available-ufuncs" target="_blank" rel="external">Click to see all functions supported</a></p>
 <h2 id="Array_processing"><em>Array processing</em></h2><p>Use matplotlib to show result.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">points = np.arange(-<span class="number">5</span>,<span class="number">5</span>,<span class="number">0.01</span>)</span><br><span class="line">dx,dy = np.meshgrid(points, points) <span class="comment">#create mesh grid which x axis of [-5,5], y axis of [-5,5], interval 0.01</span></span><br><span class="line">z = np.sin(dx)+np.sin(dy) <span class="comment">#a fancy funtion</span></span><br><span class="line">plt.imshow(z)</span><br><span class="line">plot.colorbar()</span><br><span class="line">plt.title(<span class="string">"Plot for sin(x)+sin(y)"</span>)</span><br></pre></td></tr></table></figure>
-<p>The output of above script is<br><img src="source/_posts/Numpy_note/figure1.png" alt=""></p>
+<p>The output of above script is </p>
+<figure><br>    <img src="figure1.png" style="display:block;margin:auto"><br>    <figcaption>Fig 1</figcaption><br></figure>
+
+<p>Numpy where is a method that can select desired results from two arrays according to a boolean condition array.</p>
+<p>For example, we have</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">B = np.array([<span class="number">100</span>,<span class="number">200</span>,<span class="number">300</span>,<span class="number">400</span>])</span><br><span class="line">condition = np.array([<span class="keyword">True</span>,<span class="keyword">True</span>,<span class="keyword">False</span>,<span class="keyword">False</span>])</span><br><span class="line"><span class="comment"># we now want to choose from A if corresponding condition is True, and B if False</span></span><br><span class="line">answer = [(A_val <span class="keyword">if</span> cond <span class="keyword">else</span> B_val) <span class="keyword">for</span> A_val,B_val,cond <span class="keyword">in</span> zip(A,B,condition)]</span><br><span class="line"><span class="comment"># the answer would be [1,2,300,400]</span></span><br></pre></td></tr></table></figure>
+<p>we can use <code>numpy.where()</code> method to do the same thing but lot easier<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">answer2 = np.where(condition,A,B)</span><br></pre></td></tr></table></figure></p>
+<p>I think numpy.where() is similar to the builtin python method <code>map(function, sequence)</code></p>
+<p>For boolean arrays, we can use <code>arr.any()</code> or <code>arr.all()</code> to see if there is at least one item that is true or all items are true in the array.</p>
+<p><code>numpy.unique(arr)</code> is to return all unique items in the array, like <em>distinct</em> in SQL.</p>
+<p><code>numpy.in1d(arr1,arr2)</code> is to return a boolean array showing membership of item of one-dimensional array arr1 in arr2.</p>
+<h2 id="Array_input_and_output"><em>Array input and output</em></h2><p>To save the array data into <em>.npy</em> format on disk, use <code>numpy.save(&#39;filename&#39;, array)</code>.</p>
+<p>To load <em>.npy</em> file into workspace, use <code>numpy.load(&#39;filename.npy&#39;)</code>.</p>
+<p>To save multiple arrays into a zip file, use <code>numpy.savez(&#39;filename.npz&#39;,x=arr1,y=arr2)</code>.</p>
+<p>To load <em>.npz</em> file, still use <code>archive = numpy.load(&#39;filename.npz&#39;)</code> and show arr1 by <code>archive[&#39;x&#39;]</code>.</p>
+<p>To save data into <em>.txt</em> file, use <code>numpy.savetxt(&#39;filename.txt&#39;,arr,delimiter=&#39;,&#39;)</code>.</p>
+<p>To load <em>.txt</em> file, use <code>numpy.loadtxt(&#39;filename.txt&#39;,delimiter=&#39;,&#39;)</code></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -188,7 +204,7 @@ The dimension of Numpy array can be got u">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#array_initialization"><span class="toc-number">1.</span> <span class="toc-text">array initialization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#division"><span class="toc-number">2.</span> <span class="toc-text">division</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#indexing,_slicing"><span class="toc-number">3.</span> <span class="toc-text">indexing, slicing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transpose"><span class="toc-number">4.</span> <span class="toc-text">transpose</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Univeral_array_functions"><span class="toc-number">5.</span> <span class="toc-text">Univeral array functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array_processing"><span class="toc-number">6.</span> <span class="toc-text">Array processing</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#array_initialization"><span class="toc-number">1.</span> <span class="toc-text">array initialization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#division"><span class="toc-number">2.</span> <span class="toc-text">division</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#indexing,_slicing"><span class="toc-number">3.</span> <span class="toc-text">indexing, slicing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transpose"><span class="toc-number">4.</span> <span class="toc-text">transpose</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Univeral_array_functions"><span class="toc-number">5.</span> <span class="toc-text">Univeral array functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array_processing"><span class="toc-number">6.</span> <span class="toc-text">Array processing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array_input_and_output"><span class="toc-number">7.</span> <span class="toc-text">Array input and output</span></a></li></ol>
  
   </div>
 
