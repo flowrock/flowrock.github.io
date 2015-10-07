@@ -21,7 +21,8 @@ The dimension of Numpy array can be got u">
 <meta property="og:description" content="array initializationNumpy array object needs to be initialized from list object in python. 
 import numpy as npmy_list1 = [1,2,3]my_array1 = np.array(my_list1)
 The dimension of Numpy array can be got u">
-<meta property="og:updated_time" content="2015-10-07T15:10:21.000Z">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/06/Numpy-note/figure1.png">
+<meta property="og:updated_time" content="2015-10-07T15:13:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Numpy note">
 <meta name="twitter:description" content="array initializationNumpy array object needs to be initialized from list object in python. 
@@ -127,6 +128,8 @@ The dimension of Numpy array can be got u">
 <h2 id="Array_processing"><em>Array processing</em></h2><p>Use matplotlib to show result.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">points = np.arange(-<span class="number">5</span>,<span class="number">5</span>,<span class="number">0.01</span>)</span><br><span class="line">dx,dy = np.meshgrid(points, points) <span class="comment">#create mesh grid which x axis of [-5,5], y axis of [-5,5], interval 0.01</span></span><br><span class="line">z = np.sin(dx)+np.sin(dy) <span class="comment">#a fancy funtion</span></span><br><span class="line">plt.imshow(z)</span><br><span class="line">plot.colorbar()</span><br><span class="line">plt.title(<span class="string">"Plot for sin(x)+sin(y)"</span>)</span><br></pre></td></tr></table></figure>
 <p>The output of above script is </p>
+<figure><br>    <img src="/2015/10/06/Numpy-note/figure1.png" style="display:block;margin:auto"><br>    <figcaption>Fig 1</figcaption><br></figure>
+
 <p>Numpy where is a method that can select desired results from two arrays according to a boolean condition array.</p>
 <p>For example, we have</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">B = np.array([<span class="number">100</span>,<span class="number">200</span>,<span class="number">300</span>,<span class="number">400</span>])</span><br><span class="line">condition = np.array([<span class="keyword">True</span>,<span class="keyword">True</span>,<span class="keyword">False</span>,<span class="keyword">False</span>])</span><br><span class="line"><span class="comment"># we now want to choose from A if corresponding condition is True, and B if False</span></span><br><span class="line">answer = [(A_val <span class="keyword">if</span> cond <span class="keyword">else</span> B_val) <span class="keyword">for</span> A_val,B_val,cond <span class="keyword">in</span> zip(A,B,condition)]</span><br><span class="line"><span class="comment"># the answer would be [1,2,300,400]</span></span><br></pre></td></tr></table></figure>
