@@ -22,7 +22,7 @@ The dimension of Numpy array can be got u">
 import numpy as npmy_list1 = [1,2,3]my_array1 = np.array(my_list1)
 The dimension of Numpy array can be got u">
 <meta property="og:image" content="http://www.flowrocky.com/2015/10/06/Numpy-note/figure1.png">
-<meta property="og:updated_time" content="2015-10-07T15:13:39.000Z">
+<meta property="og:updated_time" content="2015-10-07T15:17:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Numpy note">
 <meta name="twitter:description" content="array initializationNumpy array object needs to be initialized from list object in python. 
@@ -128,7 +128,7 @@ The dimension of Numpy array can be got u">
 <h2 id="Array_processing"><em>Array processing</em></h2><p>Use matplotlib to show result.</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">points = np.arange(-<span class="number">5</span>,<span class="number">5</span>,<span class="number">0.01</span>)</span><br><span class="line">dx,dy = np.meshgrid(points, points) <span class="comment">#create mesh grid which x axis of [-5,5], y axis of [-5,5], interval 0.01</span></span><br><span class="line">z = np.sin(dx)+np.sin(dy) <span class="comment">#a fancy funtion</span></span><br><span class="line">plt.imshow(z)</span><br><span class="line">plot.colorbar()</span><br><span class="line">plt.title(<span class="string">"Plot for sin(x)+sin(y)"</span>)</span><br></pre></td></tr></table></figure>
 <p>The output of above script is </p>
-<figure><br>    <img src="/2015/10/06/Numpy-note/figure1.png" style="display:block;margin:auto"><br>    <figcaption>Fig 1</figcaption><br></figure>
+<figure><br>    <img src="/2015/10/06/Numpy-note/figure1.png" style="display:block;margin:auto"><br></figure>
 
 <p>Numpy where is a method that can select desired results from two arrays according to a boolean condition array.</p>
 <p>For example, we have</p>
@@ -179,6 +179,14 @@ The dimension of Numpy array can be got u">
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2015/10/08/pandas-note/" title="pandas note">
+  <strong>上一篇：</strong><br/>
+  <span>
+  pandas note</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2015/10/05/Edit-Distance/"  title="Edit Distance">
@@ -222,7 +230,7 @@ The dimension of Numpy array can be got u">
 		  
 		
 		  
-			<li><a href="/categories/data-science/" title="data science">data science<sup>1</sup></a></li>
+			<li><a href="/categories/data-science/" title="data science">data science<sup>2</sup></a></li>
 		  
 		
 		  
@@ -259,11 +267,11 @@ The dimension of Numpy array can be got u">
 			
 		
 			
-				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
+				<li><a href="/tags/python/" title="python">python<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/landscape/" title="landscape">landscape<sup>1</sup></a></li>
+				<li><a href="/tags/New-York/" title="New York">New York<sup>1</sup></a></li>
 			
 		
 			
@@ -271,11 +279,19 @@ The dimension of Numpy array can be got u">
 			
 		
 			
+				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Las-Vegas/" title="Las Vegas">Las Vegas<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/New-York/" title="New York">New York<sup>1</sup></a></li>
+				<li><a href="/tags/pandas/" title="pandas">pandas<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/landscape/" title="landscape">landscape<sup>1</sup></a></li>
 			
 		
 			
@@ -284,10 +300,6 @@ The dimension of Numpy array can be got u">
 		
 			
 				<li><a href="/tags/Numpy/" title="Numpy">Numpy<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
 			
 		
 		</ul>
