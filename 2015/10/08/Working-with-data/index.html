@@ -1,0 +1,591 @@
+
+ <!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Working with data | Flow Rock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Ruoyan Liu">
+    
+
+    
+    <meta name="description" content="Reading and Writing Text FilesFirst import packages and classes&amp;gt;&amp;gt;&amp;gt; import numpy as np&amp;gt;&amp;gt;&amp;gt; import pandas as pd&amp;gt;&amp;gt;&amp;gt; from pandas import Series, DataFrame
+We now use pandas’s buil">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Working with data">
+<meta property="og:url" content="http://www.flowrocky.com/2015/10/08/Working-with-data/index.html">
+<meta property="og:site_name" content="Flow Rock">
+<meta property="og:description" content="Reading and Writing Text FilesFirst import packages and classes&amp;gt;&amp;gt;&amp;gt; import numpy as np&amp;gt;&amp;gt;&amp;gt; import pandas as pd&amp;gt;&amp;gt;&amp;gt; from pandas import Series, DataFrame
+We now use pandas’s buil">
+<meta property="og:updated_time" content="2015-10-10T14:11:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Working with data">
+<meta name="twitter:description" content="Reading and Writing Text FilesFirst import packages and classes&amp;gt;&amp;gt;&amp;gt; import numpy as np&amp;gt;&amp;gt;&amp;gt; import pandas as pd&amp;gt;&amp;gt;&amp;gt; from pandas import Series, DataFrame
+We now use pandas’s buil">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
+    
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Flow Rock">Flow Rock</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="Search" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/08/Working-with-data/" title="Working with data" itemprop="url">Working with data</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-09T00:20:36.000Z" itemprop="datePublished"> Published 2015-10-08</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reading_and_Writing_Text_Files"><span class="toc-number">1.</span> <span class="toc-text">Reading and Writing Text Files</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Json_with_python"><span class="toc-number">2.</span> <span class="toc-text">Json with python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML_with_python"><span class="toc-number">3.</span> <span class="toc-text">HTML with python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Excel_with_python"><span class="toc-number">4.</span> <span class="toc-text">Excel with python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Merge"><span class="toc-number">5.</span> <span class="toc-text">Merge</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Concatenate"><span class="toc-number">6.</span> <span class="toc-text">Concatenate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reshaping"><span class="toc-number">7.</span> <span class="toc-text">Reshaping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Duplicates"><span class="toc-number">8.</span> <span class="toc-text">Duplicates</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binning"><span class="toc-number">9.</span> <span class="toc-text">Binning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GroupBy_on_DataFrames"><span class="toc-number">10.</span> <span class="toc-text">GroupBy on DataFrames</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="Reading_and_Writing_Text_Files"><em>Reading and Writing Text Files</em></h2><p>First import packages and classes<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br></pre></td></tr></table></figure></p>
+<p>We now use pandas’s builtin method to read csv file<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#we created the file test.csv beforehand, pandas will read and load the data int he csv in DataFrame object</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe = pd.read_csv(<span class="string">'test.csv'</span>)</span><br><span class="line"><span class="comment">#because csv file delimits data with comma ',' by default, and pandas.read_csv() does not designate the delimiter, we can use pandas.read_table() method to read generic data with given delimiter.</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe = pd.read_table(<span class="string">'test.csv'</span>,sep=<span class="string">','</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe</span><br><span class="line">    q   r   s   t   apple</span><br><span class="line"><span class="number">0</span>   <span class="number">2</span>   <span class="number">3</span>   <span class="number">4</span>   <span class="number">5</span>   pear</span><br><span class="line"><span class="number">1</span>   a   s   d   f   rabbit</span><br><span class="line"><span class="number">2</span>   <span class="number">5</span>   <span class="number">2</span>   <span class="number">5</span>   <span class="number">7</span>   dog</span><br><span class="line"><span class="comment">#the first line of the data will be automatically set to be the attribute row by default. If the first line is data, then we need to use *header=None* as the parameter in the read_csv() method.</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe = pd.read_csv(<span class="string">'test.csv'</span>,header=<span class="keyword">None</span>)</span><br><span class="line">    <span class="number">0</span>   <span class="number">1</span>   <span class="number">2</span>   <span class="number">3</span>   <span class="number">4</span></span><br><span class="line"><span class="number">0</span>   q   r   s   t   apple</span><br><span class="line"><span class="number">1</span>   <span class="number">2</span>   <span class="number">3</span>   <span class="number">4</span>   <span class="number">5</span>   pear</span><br><span class="line"><span class="number">2</span>   a   s   d   f   rabbit</span><br><span class="line"><span class="number">3</span>   <span class="number">5</span>   <span class="number">2</span>   <span class="number">5</span>   <span class="number">7</span>   dog</span><br><span class="line"><span class="comment">#limit to 2 rows</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pd.read_csv(<span class="string">'test.csv'</span>,header=<span class="keyword">None</span>,nrows=<span class="number">2</span>)</span><br><span class="line"><span class="comment">#write DataFrame out to csv file</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe.to_csv(<span class="string">'mydata.csv'</span>)</span><br><span class="line"><span class="comment">#define the delimiter used in the output file</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe.to_csv(sys.stdout,sep=<span class="string">'-&gt;'</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="Json_with_python"><em>Json with python</em></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#we now have a Json object, actually is a string</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>json_obj = <span class="string">"""</span><br><span class="line">&#123;   "zoo_animal": "Lion",</span><br><span class="line">    "food": ["Meat", "Veggies", "Honey"],</span><br><span class="line">    "fur": "Golden",</span><br><span class="line">    "clothes": null, </span><br><span class="line">    "diet": [&#123;"zoo_animal": "Gazelle", "food":"grass", "fur": "Brown"&#125;]</span><br><span class="line">&#125;</span><br><span class="line">"""</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="comment">#load json data into python dictionary</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>data = json.loads(json_obj)</span><br><span class="line"><span class="comment">#show</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>data</span><br><span class="line">&#123;<span class="string">u'clothes'</span>: <span class="keyword">None</span>,</span><br><span class="line"> <span class="string">u'diet'</span>: [&#123;<span class="string">u'food'</span>: <span class="string">u'grass'</span>, <span class="string">u'fur'</span>: <span class="string">u'Brown'</span>, <span class="string">u'zoo_animal'</span>: <span class="string">u'Gazelle'</span>&#125;],</span><br><span class="line"> <span class="string">u'food'</span>: [<span class="string">u'Meat'</span>, <span class="string">u'Veggies'</span>, <span class="string">u'Honey'</span>],</span><br><span class="line"> <span class="string">u'fur'</span>: <span class="string">u'Golden'</span>,</span><br><span class="line"> <span class="string">u'zoo_animal'</span>: <span class="string">u'Lion'</span>&#125;</span><br><span class="line"> <span class="comment">#convert dictionary back to Json</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>json.dumps(data)</span><br><span class="line"><span class="comment">#open Json data after loading with a DataFrame</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe = DataFrame(data[<span class="string">'diet'</span>])</span><br><span class="line"><span class="comment">#show</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe</span><br><span class="line">    food    fur     zoo_animal</span><br><span class="line"><span class="number">0</span>   grass   Brown   Gazelle</span><br></pre></td></tr></table></figure>
+<h2 id="HTML_with_python"><em>HTML with python</em></h2><p>Before we can use the method <strong>pandas.io.html.read_html(url)</strong> to grab data from web, we need to install <strong>beautiful soup</strong> and <strong>html5lib</strong> first.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>url = <span class="string">'http://www.fdic.gov/bank/individual/failed/banklist.html'</span></span><br><span class="line"><span class="comment">#grab the data from html and put it into a list of DataFrame objects</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe_list = pd.io.html.read_html(url)</span><br><span class="line"><span class="comment">#grab the first list item from the database and set it as a DataFrame</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe = dframe_list[<span class="number">0</span>]</span><br><span class="line"><span class="comment">#show</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe.head()</span><br><span class="line">    Bank Name   City    ST  CERT    Acquiring Institution   Closing Date    Updated Date    Loss Share Type Agreement Terminated    Termination Date</span><br><span class="line"><span class="number">0</span>   Capitol City Bank &amp; Trust Company   Atlanta GA  <span class="number">33938</span>   First-Citizens Bank &amp; Trust Company February <span class="number">13</span>, <span class="number">2015</span>   February <span class="number">19</span>, <span class="number">2015</span>   none    NaN NaN</span><br><span class="line"><span class="number">1</span>   Highland Community Bank Chicago IL  <span class="number">20290</span>   United Fidelity Bank, fsb   January <span class="number">23</span>, <span class="number">2015</span>    February <span class="number">11</span>, <span class="number">2015</span>   none    NaN NaN</span><br><span class="line"><span class="number">2</span>   First National Bank of Crestview    Crestview   FL  <span class="number">17557</span>   First NBC Bank  January <span class="number">16</span>, <span class="number">2015</span>    February <span class="number">11</span>, <span class="number">2015</span>   none    NaN NaN</span><br><span class="line"><span class="number">3</span>   Northern Star Bank  Mankato MN  <span class="number">34983</span>   BankVista   December <span class="number">19</span>, <span class="number">2014</span>   February <span class="number">4</span>, <span class="number">2015</span>    none    NaN NaN</span><br><span class="line"><span class="number">4</span>   Frontier Bank, FSB D/B/A El Paseo Bank  Palm Desert CA  <span class="number">34738</span>   Bank of Southern California, N.A.   November <span class="number">7</span>, <span class="number">2014</span>    February <span class="number">4</span>, <span class="number">2015</span>    none    NaN NaN</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe.columns.values</span><br><span class="line">array([<span class="string">u'Bank Name'</span>, <span class="string">u'City'</span>, <span class="string">u'ST'</span>, <span class="string">u'CERT'</span>, <span class="string">u'Acquiring Institution'</span>,</span><br><span class="line">       <span class="string">u'Closing Date'</span>, <span class="string">u'Updated Date'</span>, <span class="string">u'Loss Share Type'</span>,</span><br><span class="line">       <span class="string">u'Agreement Terminated'</span>, <span class="string">u'Termination Date'</span>], dtype=object)</span><br></pre></td></tr></table></figure></p>
+<h2 id="Excel_with_python"><em>Excel with python</em></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>xlsfile = pd.ExcelFile(<span class="string">'test.xlsx'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe = xlsfile.parse(<span class="string">'Sheet1'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Merge"><em>Merge</em></h2><p><strong>pandas.merge()</strong> can provide similar functions of various join in SQL on DataFrame<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe1 = DataFrame(&#123;<span class="string">'key'</span>:[<span class="string">'X'</span>,<span class="string">'Z'</span>,<span class="string">'Y'</span>,<span class="string">'Z'</span>,<span class="string">'X'</span>,<span class="string">'X'</span>],<span class="string">'data_set_1'</span>: np.arange(<span class="number">6</span>)&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe1</span><br><span class="line">    data_set_1  key</span><br><span class="line"><span class="number">0</span>   <span class="number">0</span>           X</span><br><span class="line"><span class="number">1</span>   <span class="number">1</span>           Z</span><br><span class="line"><span class="number">2</span>   <span class="number">2</span>           Y</span><br><span class="line"><span class="number">3</span>   <span class="number">3</span>           Z</span><br><span class="line"><span class="number">4</span>   <span class="number">4</span>           X</span><br><span class="line"><span class="number">5</span>   <span class="number">5</span>           X</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe2 = DataFrame(&#123;<span class="string">'key'</span>:[<span class="string">'Q'</span>,<span class="string">'Y'</span>,<span class="string">'Z'</span>],<span class="string">'data_set_2'</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe2</span><br><span class="line">    data_set_2  key</span><br><span class="line"><span class="number">0</span>   <span class="number">1</span>           Q</span><br><span class="line"><span class="number">1</span>   <span class="number">2</span>           Y</span><br><span class="line"><span class="number">2</span>   <span class="number">3</span>           Z</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pd.merge(dframe1, dframe2) <span class="comment">#inner join</span></span><br><span class="line">    data_set_1  key data_set_2</span><br><span class="line"><span class="number">0</span>   <span class="number">1</span>           Z   <span class="number">3</span></span><br><span class="line"><span class="number">1</span>   <span class="number">3</span>           Z   <span class="number">3</span></span><br><span class="line"><span class="number">2</span>   <span class="number">2</span>           Y   <span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pd.merge(dframe1,dframe2,on=<span class="string">'key'</span>) <span class="comment">#the same effect, but we give instruction on which column should join take place</span></span><br><span class="line">    data_set_1  key data_set_2</span><br><span class="line"><span class="number">0</span>   <span class="number">1</span>           Z   <span class="number">3</span></span><br><span class="line"><span class="number">1</span>   <span class="number">3</span>           Z   <span class="number">3</span></span><br><span class="line"><span class="number">2</span>   <span class="number">2</span>           Y   <span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pd.merge(dframe,dframe2,on=<span class="string">'key'</span>,how=<span class="string">'left'</span>) <span class="comment">#left join</span></span><br><span class="line">    data_set_1  key data_set_2</span><br><span class="line"><span class="number">0</span>   <span class="number">0</span>           X   NaN</span><br><span class="line"><span class="number">1</span>   <span class="number">1</span>           Z   <span class="number">3</span></span><br><span class="line"><span class="number">2</span>   <span class="number">2</span>           Y   <span class="number">2</span></span><br><span class="line"><span class="number">3</span>   <span class="number">3</span>           Z   <span class="number">3</span></span><br><span class="line"><span class="number">4</span>   <span class="number">4</span>           X   NaN</span><br><span class="line"><span class="number">5</span>   <span class="number">5</span>           X   NaN</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pd.merge(dframe1,dframe2,on=<span class="string">'key'</span>,how=<span class="string">'right'</span>) <span class="comment">#right join</span></span><br><span class="line">    data_set_1  key data_set_2</span><br><span class="line"><span class="number">0</span>   <span class="number">1</span>           Z   <span class="number">3</span></span><br><span class="line"><span class="number">1</span>   <span class="number">3</span>           Z   <span class="number">3</span></span><br><span class="line"><span class="number">2</span>   <span class="number">2</span>           Y   <span class="number">2</span></span><br><span class="line"><span class="number">3</span>   NaN         Q   <span class="number">1</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pd.merge(dframe1,dframe2,on=<span class="string">'key'</span>,how=<span class="string">'outer'</span>) <span class="comment">#union</span></span><br><span class="line">    data_set_1  key data_set_2</span><br><span class="line"><span class="number">0</span>   <span class="number">0</span>           X   NaN</span><br><span class="line"><span class="number">1</span>   <span class="number">4</span>           X   NaN</span><br><span class="line"><span class="number">2</span>   <span class="number">5</span>           X   NaN</span><br><span class="line"><span class="number">3</span>   <span class="number">1</span>           Z   <span class="number">3</span></span><br><span class="line"><span class="number">4</span>   <span class="number">3</span>           Z   <span class="number">3</span></span><br><span class="line"><span class="number">5</span>   <span class="number">2</span>           Y   <span class="number">2</span></span><br><span class="line"><span class="number">6</span>   NaN         Q   <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>For more information on merge parameters check out <a href="http://pandas.pydata.org/pandas-docs/dev/generated/pandas.DataFrame.merge.html" target="_blank" rel="external">here</a></p>
+<h2 id="Concatenate"><em>Concatenate</em></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>arr1 = np.arange(<span class="number">9</span>).reshape((<span class="number">3</span>,<span class="number">3</span>))</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>arr1</span><br><span class="line">array([[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>],</span><br><span class="line">       [<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]])</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>np.concatenate([arr1,arr1],axis=<span class="number">1</span>) <span class="comment">#use numpy.concatenate() method</span></span><br><span class="line">array([[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>],</span><br><span class="line">       [<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]])</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>np.concatenate([arr1,arr1],axis=<span class="number">0</span>)</span><br><span class="line">array([[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>],</span><br><span class="line">       [<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>],</span><br><span class="line">       [<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]])</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ser1 =  Series([<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>],index=[<span class="string">'T'</span>,<span class="string">'U'</span>,<span class="string">'V'</span>])</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>ser2 = Series([<span class="number">3</span>,<span class="number">4</span>],index=[<span class="string">'X'</span>,<span class="string">'Y'</span>])</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pd.concat([ser1,ser2])</span><br><span class="line">T    <span class="number">0</span></span><br><span class="line">U    <span class="number">1</span></span><br><span class="line">V    <span class="number">2</span></span><br><span class="line">X    <span class="number">3</span></span><br><span class="line">Y    <span class="number">4</span></span><br><span class="line">dtype: int64</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pd.concat([ser1,ser2],axis=<span class="number">1</span>) <span class="comment">#this will create a DataFrame</span></span><br><span class="line">  <span class="number">0</span> <span class="number">1</span></span><br><span class="line">T <span class="number">0</span> NaN</span><br><span class="line">U <span class="number">1</span> NaN</span><br><span class="line">V <span class="number">2</span> NaN</span><br><span class="line">X NaN <span class="number">3</span></span><br><span class="line">Y NaN <span class="number">4</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe1 = DataFrame(np.random.randn(<span class="number">4</span>,<span class="number">3</span>), columns=[<span class="string">'X'</span>, <span class="string">'Y'</span>, <span class="string">'Z'</span>])</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe2 = DataFrame(np.random.randn(<span class="number">3</span>, <span class="number">3</span>), columns=[<span class="string">'Y'</span>, <span class="string">'Q'</span>, <span class="string">'X'</span>])</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pd.concat([dframe1,dframe2]) <span class="comment">#note the index keeps to be original</span></span><br><span class="line">  Q         X         Y         Z</span><br><span class="line"><span class="number">0</span> NaN       <span class="number">1.096040</span>  -<span class="number">1.366980</span> <span class="number">0.546707</span></span><br><span class="line"><span class="number">1</span> NaN       -<span class="number">1.406425</span> <span class="number">0.484748</span>  -<span class="number">1.156143</span></span><br><span class="line"><span class="number">2</span> NaN       <span class="number">1.155464</span>  <span class="number">1.166407</span>  -<span class="number">0.245477</span></span><br><span class="line"><span class="number">3</span> NaN       -<span class="number">0.153330</span> <span class="number">2.185743</span>  <span class="number">0.307704</span></span><br><span class="line"><span class="number">0</span> <span class="number">0.789881</span>  <span class="number">1.616933</span>  -<span class="number">0.961830</span> NaN</span><br><span class="line"><span class="number">1</span> <span class="number">0.201265</span>  <span class="number">0.293210</span>  -<span class="number">0.277847</span> NaN</span><br><span class="line"><span class="number">2</span> -<span class="number">0.121395</span> <span class="number">0.959849</span>  -<span class="number">1.360611</span> NaN</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pd.concat([dframe1,dframe2],ignore_index=<span class="keyword">True</span>) <span class="comment">#note the reindex</span></span><br><span class="line">Q           X         Y         Z</span><br><span class="line"><span class="number">0</span> NaN       <span class="number">1.096040</span>  -<span class="number">1.366980</span> <span class="number">0.546707</span></span><br><span class="line"><span class="number">1</span> NaN       -<span class="number">1.406425</span> <span class="number">0.484748</span>  -<span class="number">1.156143</span></span><br><span class="line"><span class="number">2</span> NaN       <span class="number">1.155464</span>  <span class="number">1.166407</span>  -<span class="number">0.245477</span></span><br><span class="line"><span class="number">3</span> NaN       -<span class="number">0.153330</span> <span class="number">2.185743</span>  <span class="number">0.307704</span></span><br><span class="line"><span class="number">4</span> <span class="number">0.789881</span>  <span class="number">1.616933</span>  -<span class="number">0.961830</span> NaN</span><br><span class="line"><span class="number">5</span> <span class="number">0.201265</span>  <span class="number">0.293210</span>  -<span class="number">0.277847</span> NaN</span><br><span class="line"><span class="number">6</span> -<span class="number">0.121395</span> <span class="number">0.959849</span>  -<span class="number">1.360611</span> NaN</span><br></pre></td></tr></table></figure>
+<p>For more information check out <a href="http://pandas.pydata.org/pandas-docs/dev/generated/pandas.tools.merge.concat.html" target="_blank" rel="external">here</a></p>
+<h2 id="Reshaping"><em>Reshaping</em></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe1 = DataFrame(np.arange(<span class="number">8</span>).reshape((<span class="number">2</span>, <span class="number">4</span>)),</span><br><span class="line">                 index=pd.Index([<span class="string">'LA'</span>, <span class="string">'SF'</span>], name=<span class="string">'city'</span>),</span><br><span class="line">                 columns=pd.Index([<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>,<span class="string">'D'</span>], name=<span class="string">'letter'</span>))</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe1</span><br><span class="line">letter  A B C D</span><br><span class="line">city        </span><br><span class="line">LA      <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line">SF      <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe_st = dframe1.stack() <span class="comment">#convert into multi-hierachy Series</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe_st</span><br><span class="line">city  letter</span><br><span class="line">LA    A         <span class="number">0</span></span><br><span class="line">      B         <span class="number">1</span></span><br><span class="line">      C         <span class="number">2</span></span><br><span class="line">      D         <span class="number">3</span></span><br><span class="line">SF    A         <span class="number">4</span></span><br><span class="line">      B         <span class="number">5</span></span><br><span class="line">      C         <span class="number">6</span></span><br><span class="line">      D         <span class="number">7</span></span><br><span class="line">dtype: int32</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe_st.unstack() <span class="comment">#convert stacked Series back to DataFrame</span></span><br><span class="line">letter  A B C D</span><br><span class="line">city        </span><br><span class="line">LA      <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line">SF      <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe_st.unstack(<span class="number">0</span>) <span class="comment">#choose which level to unstack by, note in this case, do a transpose</span></span><br><span class="line">city  LA  SF</span><br><span class="line">letter    </span><br><span class="line">A     <span class="number">0</span>   <span class="number">4</span></span><br><span class="line">B     <span class="number">1</span>   <span class="number">5</span></span><br><span class="line">C     <span class="number">2</span>   <span class="number">6</span></span><br><span class="line">D     <span class="number">3</span>   <span class="number">7</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe_st.unstack(<span class="string">'letter'</span>) <span class="comment">#the same to default unstack()</span></span><br><span class="line">letter  A B C D</span><br><span class="line">city        </span><br><span class="line">LA      <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line">SF      <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe_st.unstack(<span class="string">'city'</span>) <span class="comment">#the same to unstack(0)</span></span><br><span class="line">city  LA  SF</span><br><span class="line">letter    </span><br><span class="line">A     <span class="number">0</span>   <span class="number">4</span></span><br><span class="line">B     <span class="number">1</span>   <span class="number">5</span></span><br><span class="line">C     <span class="number">2</span>   <span class="number">6</span></span><br><span class="line">D     <span class="number">3</span>   <span class="number">7</span></span><br></pre></td></tr></table></figure>
+<h2 id="Duplicates"><em>Duplicates</em></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe = DataFrame(&#123;<span class="string">'key1'</span>: [<span class="string">'A'</span>] * <span class="number">2</span> + [<span class="string">'B'</span>] * <span class="number">3</span>,</span><br><span class="line">                  <span class="string">'key2'</span>: [<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>]&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe</span><br><span class="line">  key1  key2</span><br><span class="line"><span class="number">0</span> A     <span class="number">2</span></span><br><span class="line"><span class="number">1</span> A     <span class="number">2</span></span><br><span class="line"><span class="number">2</span> B     <span class="number">2</span></span><br><span class="line"><span class="number">3</span> B     <span class="number">3</span></span><br><span class="line"><span class="number">4</span> B     <span class="number">3</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe.duplicated()</span><br><span class="line"><span class="number">0</span>    <span class="keyword">False</span></span><br><span class="line"><span class="number">1</span>     <span class="keyword">True</span></span><br><span class="line"><span class="number">2</span>    <span class="keyword">False</span></span><br><span class="line"><span class="number">3</span>    <span class="keyword">False</span></span><br><span class="line"><span class="number">4</span>     <span class="keyword">True</span></span><br><span class="line">dtype: bool</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe.drop_duplicates() <span class="comment">#similar to distinct in SQL</span></span><br><span class="line">  key1  key2</span><br><span class="line"><span class="number">0</span> A     <span class="number">2</span></span><br><span class="line"><span class="number">2</span> B     <span class="number">2</span></span><br><span class="line"><span class="number">3</span> B     <span class="number">3</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe.drop_duplicates([<span class="string">'key1'</span>]) <span class="comment">#make key1 distinct</span></span><br><span class="line">  key1  key2</span><br><span class="line"><span class="number">0</span> A     <span class="number">2</span></span><br><span class="line"><span class="number">2</span> B     <span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe.drop_duplicates([<span class="string">'key1'</span>],take_last=<span class="keyword">True</span>) <span class="comment">#keep the last one while dropping previous duplicated records, note the index</span></span><br><span class="line">  key1  key2</span><br><span class="line"><span class="number">1</span> A     <span class="number">2</span></span><br><span class="line"><span class="number">4</span> B     <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h2 id="Binning"><em>Binning</em></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>years = [<span class="number">1990</span>,<span class="number">1991</span>,<span class="number">1992</span>,<span class="number">2008</span>,<span class="number">2012</span>,<span class="number">2015</span>,<span class="number">1987</span>,<span class="number">1969</span>,<span class="number">2013</span>,<span class="number">2008</span>,<span class="number">1999</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>decade_bins = [<span class="number">1960</span>,<span class="number">1970</span>,<span class="number">1980</span>,<span class="number">1990</span>,<span class="number">2000</span>,<span class="number">2010</span>,<span class="number">2020</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>decade_cat = pd.cut(years,decade_bins) <span class="comment">#get Category object</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>decade_cat</span><br><span class="line">[(<span class="number">1980</span>, <span class="number">1990</span>], (<span class="number">1990</span>, <span class="number">2000</span>], (<span class="number">1990</span>, <span class="number">2000</span>], (<span class="number">2000</span>, <span class="number">2010</span>], (<span class="number">2010</span>, <span class="number">2020</span>], ..., (<span class="number">1980</span>, <span class="number">1990</span>], (<span class="number">1960</span>, <span class="number">1970</span>], (<span class="number">2010</span>, <span class="number">2020</span>], (<span class="number">2000</span>, <span class="number">2010</span>], (<span class="number">1990</span>, <span class="number">2000</span>]]</span><br><span class="line">Length: <span class="number">11</span></span><br><span class="line">Categories (<span class="number">6</span>, object): [(<span class="number">1960</span>, <span class="number">1970</span>] &lt; (<span class="number">1970</span>, <span class="number">1980</span>] &lt; (<span class="number">1980</span>, <span class="number">1990</span>] &lt; (<span class="number">1990</span>, <span class="number">2000</span>] &lt; (<span class="number">2000</span>, <span class="number">2010</span>] &lt; (<span class="number">2010</span>, <span class="number">2020</span>]]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>decade_cat.categories</span><br><span class="line">Index([<span class="string">u'(1960, 1970]'</span>, <span class="string">u'(1970, 1980]'</span>, <span class="string">u'(1980, 1990]'</span>, <span class="string">u'(1990, 2000]'</span>, <span class="string">u'(2000, 2010]'</span>, <span class="string">u'(2010, 2020]'</span>], dtype=<span class="string">'object'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pd.value_counts(decade_cat)</span><br><span class="line">(<span class="number">2010</span>, <span class="number">2020</span>]    <span class="number">3</span></span><br><span class="line">(<span class="number">1990</span>, <span class="number">2000</span>]    <span class="number">3</span></span><br><span class="line">(<span class="number">2000</span>, <span class="number">2010</span>]    <span class="number">2</span></span><br><span class="line">(<span class="number">1980</span>, <span class="number">1990</span>]    <span class="number">2</span></span><br><span class="line">(<span class="number">1960</span>, <span class="number">1970</span>]    <span class="number">1</span></span><br><span class="line">(<span class="number">1970</span>, <span class="number">1980</span>]    <span class="number">0</span></span><br><span class="line">dtype: int64</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>pd.cut(years,<span class="number">2</span>,precision=<span class="number">1</span>) <span class="comment">#want two bins, each with same number of items, and 1 year precision</span></span><br><span class="line">[(<span class="number">1969</span>, <span class="number">1992</span>], (<span class="number">1969</span>, <span class="number">1992</span>], (<span class="number">1969</span>, <span class="number">1992</span>], (<span class="number">1992</span>, <span class="number">2015</span>], (<span class="number">1992</span>, <span class="number">2015</span>], ..., (<span class="number">1969</span>, <span class="number">1992</span>], (<span class="number">1969</span>, <span class="number">1992</span>], (<span class="number">1992</span>, <span class="number">2015</span>], (<span class="number">1992</span>, <span class="number">2015</span>], (<span class="number">1992</span>, <span class="number">2015</span>]]</span><br><span class="line">Length: <span class="number">11</span></span><br><span class="line">Categories (<span class="number">2</span>, object): [(<span class="number">1969</span>, <span class="number">1992</span>] &lt; (<span class="number">1992</span>, <span class="number">2015</span>]]</span><br></pre></td></tr></table></figure>
+<h2 id="GroupBy_on_DataFrames"><em>GroupBy on DataFrames</em></h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe = DataFrame(&#123;<span class="string">'k1'</span>:[<span class="string">'X'</span>,<span class="string">'X'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Z'</span>],</span><br><span class="line">                    <span class="string">'k2'</span>:[<span class="string">'alpha'</span>,<span class="string">'beta'</span>,<span class="string">'alpha'</span>,<span class="string">'beta'</span>,<span class="string">'alpha'</span>],</span><br><span class="line">                    <span class="string">'dataset1'</span>:np.random.randn(<span class="number">5</span>),</span><br><span class="line">                    <span class="string">'dataset2'</span>:np.random.randn(<span class="number">5</span>)&#125;)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe </span><br><span class="line">  dataset1  dataset2  k1  k2</span><br><span class="line"><span class="number">0</span> -<span class="number">0.123544</span> <span class="number">1.924614</span>  X alpha</span><br><span class="line"><span class="number">1</span> -<span class="number">1.448666</span> <span class="number">0.477115</span>  X beta</span><br><span class="line"><span class="number">2</span> -<span class="number">1.139759</span> -<span class="number">1.378362</span> Y alpha</span><br><span class="line"><span class="number">3</span> -<span class="number">0.617664</span> -<span class="number">0.105714</span> Y beta</span><br><span class="line"><span class="number">4</span> -<span class="number">0.573748</span> <span class="number">0.409242</span>  Z alpha</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>group1 = dframe[<span class="string">'dataset1'</span>].groupby(dframe[<span class="string">'k1'</span>])</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>group1</span><br><span class="line">&lt;pandas.core.groupby.SeriesGroupBy object at <span class="number">0x000000000AF84780</span>&gt;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>group1.mean()</span><br><span class="line">k1</span><br><span class="line">X    -<span class="number">0.786105</span></span><br><span class="line">Y    -<span class="number">0.878712</span></span><br><span class="line">Z    -<span class="number">0.573748</span></span><br><span class="line">Name: dataset1, dtype: float64</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe.groupby([<span class="string">'k1'</span>,<span class="string">'k2'</span>]).mean()</span><br><span class="line">          dataset1  dataset2</span><br><span class="line">k1  k2    </span><br><span class="line">X   alpha -<span class="number">0.123544</span> <span class="number">1.924614</span></span><br><span class="line">    beta  -<span class="number">1.448666</span> <span class="number">0.477115</span></span><br><span class="line">Y   alpha -<span class="number">1.139759</span> -<span class="number">1.378362</span></span><br><span class="line">    beta  -<span class="number">0.617664</span> -<span class="number">0.105714</span></span><br><span class="line">Z   alpha -<span class="number">0.573748</span> <span class="number">0.409242</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>dframe.groupby([<span class="string">'k1'</span>]).size()</span><br><span class="line">k1</span><br><span class="line">X     <span class="number">2</span></span><br><span class="line">Y     <span class="number">2</span></span><br><span class="line">Z     <span class="number">1</span></span><br><span class="line">dtype: int64</span><br><span class="line"><span class="comment"># We can also iterate over groups</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">for</span> name,group <span class="keyword">in</span> dframe.groupby(<span class="string">'k1'</span>):</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"This is the %s group"</span> %name</span><br><span class="line">    <span class="keyword">print</span> group</span><br><span class="line"></span><br><span class="line">This <span class="keyword">is</span> the X group</span><br><span class="line">   dataset1  dataset2 k1     k2</span><br><span class="line"><span class="number">0</span> -<span class="number">0.123544</span>  <span class="number">1.924614</span>  X  alpha</span><br><span class="line"><span class="number">1</span> -<span class="number">1.448666</span>  <span class="number">0.477115</span>  X   beta</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">This <span class="keyword">is</span> the Y group</span><br><span class="line">   dataset1  dataset2 k1     k2</span><br><span class="line"><span class="number">2</span> -<span class="number">1.139759</span> -<span class="number">1.378362</span>  Y  alpha</span><br><span class="line"><span class="number">3</span> -<span class="number">0.617664</span> -<span class="number">0.105714</span>  Y   beta</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">This <span class="keyword">is</span> the Z group</span><br><span class="line">   dataset1  dataset2 k1     k2</span><br><span class="line"><span class="number">4</span> -<span class="number">0.573748</span>  <span class="number">0.409242</span>  Z  alpha</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n'</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">for</span> (k1,k2) , group <span class="keyword">in</span> dframe.groupby([<span class="string">'k1'</span>,<span class="string">'k2'</span>]):</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Key1 = %s Key2 = %s"</span> %(k1,k2)</span><br><span class="line">    <span class="keyword">print</span> group</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n'</span></span><br><span class="line">Key1 = X Key2 = alpha</span><br><span class="line">   dataset1  dataset2 k1     k2</span><br><span class="line"><span class="number">0</span> -<span class="number">0.123544</span>  <span class="number">1.924614</span>  X  alpha</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Key1 = X Key2 = beta</span><br><span class="line">   dataset1  dataset2 k1    k2</span><br><span class="line"><span class="number">1</span> -<span class="number">1.448666</span>  <span class="number">0.477115</span>  X  beta</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Key1 = Y Key2 = alpha</span><br><span class="line">   dataset1  dataset2 k1     k2</span><br><span class="line"><span class="number">2</span> -<span class="number">1.139759</span> -<span class="number">1.378362</span>  Y  alpha</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Key1 = Y Key2 = beta</span><br><span class="line">   dataset1  dataset2 k1    k2</span><br><span class="line"><span class="number">3</span> -<span class="number">0.617664</span> -<span class="number">0.105714</span>  Y  beta</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Key1 = Z Key2 = alpha</span><br><span class="line">   dataset1  dataset2 k1     k2</span><br><span class="line"><span class="number">4</span> -<span class="number">0.573748</span>  <span class="number">0.409242</span>  Z  alpha</span><br><span class="line"><span class="comment">#pandas.core.groupby.SeriesGroupBy object can be turned into a list of groups using list(group_obj)</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>group_dict = dict(list(dframe.groupby(<span class="string">'k1'</span>))) <span class="comment">#each item in list has two elements(group and value) separated by comma, thus can turn into dictionary using dict()</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>group_dict[<span class="string">'X'</span>]</span><br><span class="line">  dataset1  dataset2  k1  k2</span><br><span class="line"><span class="number">0</span> -<span class="number">0.123544</span> <span class="number">1.924614</span>  X alpha</span><br><span class="line"><span class="number">1</span> -<span class="number">1.448666</span> <span class="number">0.477115</span>  X beta</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/data-science/">data science</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/pandas/">pandas</a><a href="/tags/python/">python</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.flowrocky.com/2015/10/08/Working-with-data/" data-title="Working with data | Flow Rock" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/10/08/pandas-note/"  title="pandas note">
+ <strong>下一篇：</strong><br/> 
+ <span>pandas note
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reading_and_Writing_Text_Files"><span class="toc-number">1.</span> <span class="toc-text">Reading and Writing Text Files</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Json_with_python"><span class="toc-number">2.</span> <span class="toc-text">Json with python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML_with_python"><span class="toc-number">3.</span> <span class="toc-text">HTML with python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Excel_with_python"><span class="toc-number">4.</span> <span class="toc-text">Excel with python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Merge"><span class="toc-number">5.</span> <span class="toc-text">Merge</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Concatenate"><span class="toc-number">6.</span> <span class="toc-text">Concatenate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reshaping"><span class="toc-number">7.</span> <span class="toc-text">Reshaping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Duplicates"><span class="toc-number">8.</span> <span class="toc-text">Duplicates</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binning"><span class="toc-number">9.</span> <span class="toc-text">Binning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GroupBy_on_DataFrames"><span class="toc-number">10.</span> <span class="toc-text">GroupBy on DataFrames</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/coding/" title="coding">coding<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/data-science/" title="data science">data science<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/life/" title="life">life<sup>4</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/photo/" title="photo">photo<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dp/" title="dp">dp<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cityscape/" title="cityscape">cityscape<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pandas/" title="pandas">pandas<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/New-York/" title="New York">New York<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/landscape/" title="landscape">landscape<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/US-west/" title="US west">US west<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Las-Vegas/" title="Las Vegas">Las Vegas<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/recursive/" title="recursive">recursive<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Numpy/" title="Numpy">Numpy<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Dream shall never fade <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/flowrock" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/ruoyanliu" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:rl1969@nyu.edu" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="Ruoyan Liu">Ruoyan Liu</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'flowrock';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-68266631-1', 'www.flowrocky.com');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
