@@ -1,0 +1,619 @@
+
+ <!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Data visualization | Flow Rock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Ruoyan Liu">
+    
+
+    
+    <meta name="description" content="HistogramsFirst of all, install matplotlib, seaborn using pip.
+Import related packages and classes.import numpy as npfrom numpy.random import randnimport pandas as pdfrom scipy import statsimport matp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data visualization">
+<meta property="og:url" content="http://www.flowrocky.com/2015/10/10/Data-visualization/index.html">
+<meta property="og:site_name" content="Flow Rock">
+<meta property="og:description" content="HistogramsFirst of all, install matplotlib, seaborn using pip.
+Import related packages and classes.import numpy as npfrom numpy.random import randnimport pandas as pdfrom scipy import statsimport matp">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig1.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig2.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig3.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig4.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig5.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig6.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig7.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig8.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig9.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig10.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig11.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig12.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig13.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig14.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig15.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig16.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig17.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig18.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig19.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig20.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/10/Data-visualization/fig21.png">
+<meta property="og:updated_time" content="2015-10-12T01:05:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Data visualization">
+<meta name="twitter:description" content="HistogramsFirst of all, install matplotlib, seaborn using pip.
+Import related packages and classes.import numpy as npfrom numpy.random import randnimport pandas as pdfrom scipy import statsimport matp">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
+    
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Flow Rock">Flow Rock</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="Search" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/10/Data-visualization/" title="Data visualization" itemprop="url">Data visualization</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-10T19:13:20.000Z" itemprop="datePublished"> Published 2015-10-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Histograms"><span class="toc-number">1.</span> <span class="toc-text">Histograms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kernel_Density_Estimation_Plots"><span class="toc-number">2.</span> <span class="toc-text">Kernel Density Estimation Plots</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Regression_Plots"><span class="toc-number">3.</span> <span class="toc-text">Regression Plots</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="Histograms"><em>Histograms</em></h2><p>First of all, install matplotlib, seaborn using pip.</p>
+<p>Import related packages and classes.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> randn</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> stats</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br></pre></td></tr></table></figure></p>
+<p>Create a normal distributed dataset.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dataset1 = randn(<span class="number">100</span>)</span><br></pre></td></tr></table></figure></p>
+<p>Plot a histogram of the dataset, there are 10 bins by default<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.hist(dataset1)</span><br></pre></td></tr></table></figure></p>
+<figure><br>    <img src="/2015/10/10/Data-visualization/fig1.png" style="display:block;margin:auto"><br></figure><br>Create another dataset, and draw two datasets together.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dataset2 = randn(<span class="number">80</span>)</span><br><span class="line">plt.hist(dataset1,normed=<span class="keyword">True</span>,color=<span class="string">'indianred'</span>,alpha=<span class="number">0.5</span>,bins=<span class="number">20</span>)</span><br><span class="line">plt.hist(dataset2,normed=<span class="keyword">True</span>,alpha=<span class="number">0.5</span>,bins=<span class="number">20</span>)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig2.png" style="display:block;margin:auto"><br></figure><br>Now joint plot two same-lengthed datasets<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data1=randn(<span class="number">10000</span>)</span><br><span class="line">data2=randn(<span class="number">10000</span>)</span><br><span class="line">sns.jointplot(data1,data2)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig3.png" style="display:block;margin:auto"><br></figure><br>Use hex bins for more concise picture<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.jointplot(data1,data2,kind=<span class="string">'hex'</span>)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig4.png" style="display:block;margin:auto"><br></figure>
+
+<h2 id="Kernel_Density_Estimation_Plots"><em>Kernel Density Estimation Plots</em></h2><p>Create rugplot for a normal distributed dataset.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dataset = randn(<span class="number">25</span>)</span><br><span class="line">sns.rugplot(dataset)</span><br><span class="line">plt.ylim(<span class="number">0</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<figure><br>    <img src="/2015/10/10/Data-visualization/fig5.png" style="display:block;margin:auto"><br></figure><br>Plot a higtogram on top of it.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.hist(dataset,alpha=<span class="number">0.3</span>)</span><br><span class="line">sns.rugplot(dataset)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig6.png" style="display:block;margin:auto"><br></figure><br>The kernel density plot will represent each tick mark with a gaussian basis function.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.rugplot(dataset)</span><br><span class="line">x_min = dataset.min() - <span class="number">2</span></span><br><span class="line">x_max = dataset.max() + <span class="number">2</span></span><br><span class="line"><span class="comment">#100 equally spaced points from x_min to x_max</span></span><br><span class="line">x_axis = np.linspace(x_min,x_max,<span class="number">100</span>)</span><br><span class="line"><span class="comment">#bandwidth is a smooth factor</span></span><br><span class="line">bandwidth = ((<span class="number">4</span>*dataset.std()**<span class="number">5</span>)/(<span class="number">3</span>*len(dataset)))**<span class="number">.2</span></span><br><span class="line"><span class="comment">#create an empty kernel list</span></span><br><span class="line">kernel_list = []</span><br><span class="line"><span class="comment">#plot each basis function</span></span><br><span class="line"><span class="keyword">for</span> data_point <span class="keyword">in</span> dataset:</span><br><span class="line">    <span class="comment">#create a kernel for each point and append to list</span></span><br><span class="line">    kernel = stats.norm(data_point,bandwidth).pdf(x_axis)</span><br><span class="line">    kernel_list.append(kernel)</span><br><span class="line">    <span class="comment">#scale for plotting</span></span><br><span class="line">    kernel = kernel/kernel.max()</span><br><span class="line">    kernel = kernel*<span class="number">.4</span></span><br><span class="line">    plt.plot(x_axis,kernel,color=<span class="string">'grey'</span>,alpha=<span class="number">0.5</span>)</span><br><span class="line">plt.ylim(<span class="number">0</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig7.png" style="display:block;margin:auto"><br></figure><br>Use matplotlib to create kde plot manully.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sum_of_kde = np.sum(kernel_list,axis=<span class="number">0</span>)</span><br><span class="line">fig = plt.plot(x_axis,sum_of_kde,color=<span class="string">'indianred'</span>)</span><br><span class="line">sns.rugplot(dataset,c = <span class="string">'indianred'</span>)</span><br><span class="line">plt.yticks([])</span><br><span class="line">plt.suptitle(<span class="string">"Sum of the Basis Functions"</span>)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig8.png" style="display:block;margin:auto"><br></figure><br>The above code can be directly got using seaborn.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.kdeplot(dataset)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig9.png" style="display:block;margin:auto"><br></figure><br>Adjust the bandwidth of the sns kde.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.rugplot(dataset,color=<span class="string">'black'</span>)</span><br><span class="line"><span class="keyword">for</span> bw <span class="keyword">in</span> np.arange(<span class="number">0.5</span>,<span class="number">2</span>,<span class="number">0.25</span>):</span><br><span class="line">    sns.kdeplot(dataset,bw=bw,lw=<span class="number">1.8</span>,label=bw)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig10.png" style="display:block;margin:auto"><br></figure><br>Choose different kernels. For more info on kernels, check out <a href="http://en.wikipedia.org/wiki/Kernel_(statistics" target="_blank" rel="external">here</a>)<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">kernel_options = [<span class="string">"biw"</span>, <span class="string">"cos"</span>, <span class="string">"epa"</span>, <span class="string">"gau"</span>, <span class="string">"tri"</span>, <span class="string">"triw"</span>]</span><br><span class="line"><span class="keyword">for</span> kern <span class="keyword">in</span> kernel_options:</span><br><span class="line">    sns.kdeplot(dataset,kernel=kern,label=kern)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig11.png" style="display:block;margin:auto"><br></figure><br>We can also shade if desired.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> kern <span class="keyword">in</span> kernel_options:</span><br><span class="line">    sns.kdeplot(dataset,kernel=kern,label=kern,shade=<span class="keyword">True</span>,alpha=<span class="number">0.5</span>)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig12.png" style="display:block;margin:auto"><br></figure><br>Create cumulative distribution function of the data.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.kdeplot(dataset,cumulative=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig13.png" style="display:block;margin:auto"><br></figure><br>We can also use kdeplot for multidimensional data.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">mean = [<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line"><span class="comment">#diagonal covariance, note the matrix should be symmetric, also according to covariance matrix property, |&lt;x,y&gt;|^2 &lt;= &lt;x,x&gt;*&lt;y,y&gt; (&lt;a,b&gt; represents inner product of vector a and b)</span></span><br><span class="line">cov = [[<span class="number">10</span>,<span class="number">20</span>],[<span class="number">20</span>,<span class="number">100</span>]]</span><br><span class="line">dataset2 = np.random.multivariate_normal(mean,cov,<span class="number">1000</span>)</span><br><span class="line">dframe = pd.DataFrame(dataset2,columns=[<span class="string">'X'</span>,<span class="string">'Y'</span>])</span><br><span class="line">sns.kdeplot(dframe)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig14.png" style="display:block;margin:auto"><br></figure><br>Pass two vectors separately and shade.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.kdeplot(dframe.X,dframe.Y,shade=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig15.png" style="display:block;margin:auto"><br></figure>
+
+<h2 id="Regression_Plots"><em>Regression Plots</em></h2><p>We load a builtin example dataset of Seaborn to a Pandas DataFrame.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tips = sns.load_dataset(<span class="string">"tips"</span>)</span><br><span class="line">tips.head()</span><br><span class="line">	total_bill	tip	sex	smoker	day	time	size</span><br><span class="line"><span class="number">0</span>	<span class="number">16.99</span>	<span class="number">1.01</span>	Female	No	Sun	Dinner	<span class="number">2</span></span><br><span class="line"><span class="number">1</span>	<span class="number">10.34</span>	<span class="number">1.66</span>	Male	No	Sun	Dinner	<span class="number">3</span></span><br><span class="line"><span class="number">2</span>	<span class="number">21.01</span>	<span class="number">3.50</span>	Male	No	Sun	Dinner	<span class="number">3</span></span><br><span class="line"><span class="number">3</span>	<span class="number">23.68</span>	<span class="number">3.31</span>	Male	No	Sun	Dinner	<span class="number">2</span></span><br><span class="line"><span class="number">4</span>	<span class="number">24.59</span>	<span class="number">3.61</span>	Female	No	Sun	Dinner	<span class="number">4</span></span><br></pre></td></tr></table></figure></p>
+<p>Plot total bill versus tips<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lmplot(<span class="string">"total_bill"</span>,<span class="string">"tip"</span>,tips)</span><br></pre></td></tr></table></figure></p>
+<figure><br>    <img src="/2015/10/10/Data-visualization/fig16.png" style="display:block;margin:auto"><br></figure><br>We can also check out higher-order trends.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lmplot(<span class="string">"total_bill"</span>, <span class="string">"tip"</span>, tips,order=<span class="number">4</span>,</span><br><span class="line">           scatter_kws=&#123;<span class="string">"marker"</span>: <span class="string">"o"</span>, <span class="string">"color"</span>: <span class="string">"indianred"</span>&#125;,</span><br><span class="line">           line_kws=&#123;<span class="string">"linewidth"</span>: <span class="number">1</span>, <span class="string">"color"</span>: <span class="string">"blue"</span>&#125;)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig17.png" style="display:block;margin:auto"><br></figure><br>Create a new column for tip percentage.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tips[<span class="string">"tip_pect"</span>]=<span class="number">100</span>*(tips[<span class="string">'tip'</span>]/tips[<span class="string">'total_bill'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#plot</span></span><br><span class="line">sns.lmplot(<span class="string">"size"</span>, <span class="string">"tip_pect"</span>, tips)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig18.png" style="display:block;margin:auto"><br></figure><br>We can also estimate the tendency of each bin.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lmplot(<span class="string">"size"</span>, <span class="string">"tip_pect"</span>, tips, x_estimator=np.mean);</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig19.png" style="display:block;margin:auto"><br></figure><br>Interesting, looks like there is more variance for party sizes of 1 than 2-4.<br>Plot subsets of tips by male and female customer together.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lmplot(<span class="string">"total_bill"</span>, <span class="string">"tip_pect"</span>, tips, hue=<span class="string">"sex"</span>,markers=[<span class="string">"x"</span>,<span class="string">"o"</span>])</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig20.png" style="display:block;margin:auto"><br></figure><br>What about by day?<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lmplot(<span class="string">"total_bill"</span>, <span class="string">"tip_pect"</span>, tips, hue=<span class="string">"day"</span>)</span><br></pre></td></tr></table></figure><br><br><figure><br>    <img src="/2015/10/10/Data-visualization/fig21.png" style="display:block;margin:auto"><br></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/data-science/">data science</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/matplotlib/">matplotlib</a><a href="/tags/python/">python</a><a href="/tags/seaborn/">seaborn</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.flowrocky.com/2015/10/10/Data-visualization/" data-title="Data visualization | Flow Rock" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/10/08/Working-with-data/"  title="Working with data">
+ <strong>下一篇：</strong><br/> 
+ <span>Working with data
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Histograms"><span class="toc-number">1.</span> <span class="toc-text">Histograms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kernel_Density_Estimation_Plots"><span class="toc-number">2.</span> <span class="toc-text">Kernel Density Estimation Plots</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Regression_Plots"><span class="toc-number">3.</span> <span class="toc-text">Regression Plots</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/coding/" title="coding">coding<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/data-science/" title="data science">data science<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/life/" title="life">life<sup>4</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/photo/" title="photo">photo<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dp/" title="dp">dp<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cityscape/" title="cityscape">cityscape<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pandas/" title="pandas">pandas<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Las-Vegas/" title="Las Vegas">Las Vegas<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/landscape/" title="landscape">landscape<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/US-west/" title="US west">US west<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/New-York/" title="New York">New York<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/recursive/" title="recursive">recursive<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Numpy/" title="Numpy">Numpy<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/seaborn/" title="seaborn">seaborn<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/matplotlib/" title="matplotlib">matplotlib<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Dream shall never fade <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/flowrock" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/ruoyanliu" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:rl1969@nyu.edu" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="Ruoyan Liu">Ruoyan Liu</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'flowrock';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-68266631-1', 'www.flowrocky.com');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
