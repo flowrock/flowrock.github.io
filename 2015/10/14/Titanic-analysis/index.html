@@ -1,0 +1,621 @@
+
+ <!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Titanic data analysis | Flow Rock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Ruoyan Liu">
+    
+
+    
+    <meta name="description" content="The data comes from Kaggle Titanic Challenge at https://www.kaggle.com/c/titanic-gettingStarted, we download train.csv.
+First, import related packages and load the data file.import numpy as npimport p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Titanic data analysis">
+<meta property="og:url" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/index.html">
+<meta property="og:site_name" content="Flow Rock">
+<meta property="og:description" content="The data comes from Kaggle Titanic Challenge at https://www.kaggle.com/c/titanic-gettingStarted, we download train.csv.
+First, import related packages and load the data file.import numpy as npimport p">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig1.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig3.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig4.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig5.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig6.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig7.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig8.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig9.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig10.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig11.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig12.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig13.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig14.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig15.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/14/Titanic-analysis/fig16.png">
+<meta property="og:updated_time" content="2015-10-15T04:36:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Titanic data analysis">
+<meta name="twitter:description" content="The data comes from Kaggle Titanic Challenge at https://www.kaggle.com/c/titanic-gettingStarted, we download train.csv.
+First, import related packages and load the data file.import numpy as npimport p">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
+    
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Flow Rock">Flow Rock</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="Search" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/14/Titanic-analysis/" title="Titanic data analysis" itemprop="url">Titanic data analysis</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-14T23:22:25.000Z" itemprop="datePublished"> Published 2015-10-14</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>The data comes from Kaggle Titanic Challenge at <a href="https://www.kaggle.com/c/titanic-gettingStarted" target="_blank" rel="external">https://www.kaggle.com/c/titanic-gettingStarted</a>, we download train.csv.</p>
+<p>First, import related packages and load the data file.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">titanic_df = pd.read_csv(<span class="string">'train.csv'</span>)</span><br><span class="line">titanic.head()</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig1.png" style="display:block;margin:auto"><br>Get overall info of the dataset<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">titanic_df.info()</span><br><span class="line"></span><br><span class="line">Int64Index: <span class="number">891</span> entries, <span class="number">0</span> to <span class="number">890</span></span><br><span class="line">Data columns (total <span class="number">12</span> columns):</span><br><span class="line">PassengerId    <span class="number">891</span> non-null int64</span><br><span class="line">Survived       <span class="number">891</span> non-null int64</span><br><span class="line">Pclass         <span class="number">891</span> non-null int64</span><br><span class="line">Name           <span class="number">891</span> non-null object</span><br><span class="line">Sex            <span class="number">891</span> non-null object</span><br><span class="line">Age            <span class="number">714</span> non-null float64</span><br><span class="line">SibSp          <span class="number">891</span> non-null int64</span><br><span class="line">Parch          <span class="number">891</span> non-null int64</span><br><span class="line">Ticket         <span class="number">891</span> non-null object</span><br><span class="line">Fare           <span class="number">891</span> non-null float64</span><br><span class="line">Cabin          <span class="number">204</span> non-null object</span><br><span class="line">Embarked       <span class="number">889</span> non-null object</span><br><span class="line">dtypes: float64(<span class="number">2</span>), int64(<span class="number">5</span>), object(<span class="number">5</span>)</span><br><span class="line">memory usage: <span class="number">90.5</span>+ KB</span><br></pre></td></tr></table></figure></p>
+<p>First, we may want to view male and female numbers on board. We can use <strong>factorplot()</strong> or <strong>countplot()</strong> to show number of members in each category.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.factorplot(<span class="string">'Sex'</span>,data=titanic_df,kind=<span class="string">'count'</span>) <span class="comment">#current factorplot needs to specify argument 'kind'</span></span><br><span class="line"><span class="comment">#or we can do sns.countplot('Sex',data=titanic_df) without specifying kind</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig3.png" style="display:block;margin:auto"><br>We may also want to see the distribution of classes on board, and in male and female.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.factorplot(<span class="string">'Pclass'</span>,data=titanic_df,hue=<span class="string">'Sex'</span>,kind=<span class="string">'count'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig4.png" style="display:block;margin:auto"><br>We may want to distinguish passengers on board into male, female and child, thus need to define a function.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">male_female_child</span><span class="params">(passenger)</span>:</span></span><br><span class="line">    age,sex = passenger</span><br><span class="line">    <span class="keyword">if</span> age&lt;<span class="number">16</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'child'</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> sex</span><br></pre></td></tr></table></figure></p>
+<p>Now we add a new column ‘People’ to the dataframe and apply the function.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">titanic_df[<span class="string">'People'</span>] = titanic_df[[<span class="string">'Age'</span>,<span class="string">'Sex'</span>]].apply(male_female_child, axis=<span class="number">1</span>) <span class="comment">#note the axis needs to be specified</span></span><br><span class="line">titanic_df[<span class="number">0</span>:<span class="number">10</span>]</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig5.png" style="display:block;margin:auto"><br>Now we show the classes in terms of ‘People’ column.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.factorplot(<span class="string">'Pclass'</span>,data=titanic_df,hue=<span class="string">'People'</span>,kind=<span class="string">'count'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig6.png" style="display:block;margin:auto"><br>We may want to know the distribution of the people age on board. We can use histogram and dataframe object can call <strong>hist()</strong> directly.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">titanic_df[<span class="string">'Age'</span>].hist(bins=<span class="number">70</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig7.png" style="display:block;margin:auto"><br>We can see how many people in each category.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">titanic_df[<span class="string">'People'</span>].value_counts()</span><br><span class="line"></span><br><span class="line">male      <span class="number">537</span></span><br><span class="line">female    <span class="number">271</span></span><br><span class="line">child      <span class="number">83</span></span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure></p>
+<p>Note that we can also achieve this by using dataframe <strong>groupby</strong> function.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">group1 = titanic_df.groupby[titanic.People]</span><br><span class="line">group1.People.count()</span><br></pre></td></tr></table></figure></p>
+<p>Other than histogram, we can also use <strong>kdeplot()</strong> in seaborn for continuous synthetic result.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#use FacetGrid to plot multiple kdeplots on one plot</span></span><br><span class="line">fig = sns.FacetGrid(titanic_df,hue=<span class="string">'Sex'</span>,aspect=<span class="number">4</span>)</span><br><span class="line"><span class="comment">#call FacetGrid.map() to use sns.kdeplot() to show age distribution</span></span><br><span class="line">fig.map(sns.kdeplot,<span class="string">'Age'</span>,shade=<span class="keyword">True</span>)</span><br><span class="line"><span class="comment">#set the x max limit by the oldest passenger</span></span><br><span class="line">oldest = titanic_df[<span class="string">'Age'</span>].max()</span><br><span class="line">fig.set(xlim=(<span class="number">0</span>,oldest))</span><br><span class="line">fig.add_legend()</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig8.png" style="display:block;margin:auto"><br>Do the same thing for classes<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig = sns.FacetGrid(titanic_df,hue=<span class="string">'Pclass'</span>,aspect=<span class="number">4</span>)</span><br><span class="line">fig.map(sns.kdeplot,<span class="string">'Age'</span>,shade=<span class="string">'True'</span>)</span><br><span class="line">oldest = titanic_df[<span class="string">'Age'</span>].max()</span><br><span class="line">fig.set(xlim=(<span class="number">0</span>,oldest))</span><br><span class="line">fig.add_legend()</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig9.png" style="display:block;margin:auto"><br>Now we want to see the Cabin column. Note that the first letter of the cabin denotes the cabin level (e.g. A,B,C,D,E,F,G).<br>As there are null values in Cabin column, we need to drop them first, and separate this column into a Series object.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">deck = titanic[<span class="string">'Cabin'</span>].dropna()</span><br></pre></td></tr></table></figure></p>
+<p>Grab the first letter of the cabins.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">levels = []</span><br><span class="line"><span class="keyword">for</span> level <span class="keyword">in</span> deck:</span><br><span class="line">    levels.append(level[<span class="number">0</span>])</span><br><span class="line">cabin_df = DataFrame(levels)</span><br><span class="line">cabin_df.columns = [<span class="string">'Cabin'</span>]</span><br><span class="line">sns.factorplot(<span class="string">'Cabin'</span>,data=cabin_df,kind=<span class="string">'count'</span>,palette=<span class="string">'winter_d'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig10.png" style="display:block;margin:auto"><br>We want to know how many passengers on board are alone (no siblings, no parents, no children), and how many are not alone. We need to put “SipSp” and “Parch” columns together, if the sum for a person is 0, then he/she is alone.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">titanic_df[<span class="string">'Alone'</span>] = titanic_df[<span class="string">'SipSp'</span>]+titanic_df[<span class="string">'Parch'</span>]</span><br><span class="line">titanic_df[<span class="string">'Alone'</span>].loc[titanic_df[<span class="string">'Alone'</span>]&gt;<span class="number">0</span>] = <span class="string">"With Family"</span></span><br><span class="line">titanic_df[<span class="string">'Alone'</span>].loc[titanic_df[<span class="string">'Alone'</span>]==<span class="number">0</span>] = <span class="string">"Alone"</span></span><br><span class="line">sns.factorplot(<span class="string">'Alone'</span>,data=titanic_df,kind=<span class="string">'count'</span>,palette=<span class="string">'Blues'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig11.png" style="display:block;margin:auto"><br>We can change the elements in “Alone” column using True to denote alone and False to denote with family.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">titanic_df[<span class="string">'Alone'</span>] = titanic_df[<span class="string">'Alone'</span>].map(&#123;<span class="string">'With Family'</span>:<span class="keyword">False</span>, <span class="string">'Alone'</span>:<span class="keyword">True</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>Note, we can change the data type of a column using <strong>astype()</strong>, e.g.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">titanic_df[<span class="string">'Alone'</span>] = titanic_df[<span class="string">'Alone'</span>].astype(int)</span><br></pre></td></tr></table></figure></p>
+<p>We now want to show the distribution of survival<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">titanic_df[<span class="string">'Survivor'</span>] = titanic_df.Survived.map(&#123;<span class="number">0</span>:<span class="string">"no"</span>,<span class="number">1</span>:<span class="string">"yes"</span>&#125;)</span><br><span class="line">sns.factorplot(<span class="string">'Survivor'</span>,data=titanic_df,palette=<span class="string">'Set1'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig12.png" style="display:block;margin:auto"><br>Show surviving ratio of different classes.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.factorplot(<span class="string">'Pclass'</span>,<span class="string">'Survived'</span>,data=titanic_df)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig13.png" style="display:block;margin:auto"><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lmplot(<span class="string">'Age'</span>,<span class="string">'Survived'</span>,data=titanic_df)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig14.png" style="display:block;margin:auto"><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lmplot(<span class="string">'Age'</span>,<span class="string">'Survived'</span>,hue=<span class="string">'Pclass'</span>,data=titanic_df,palette=<span class="string">'winter'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig15.png" style="display:block;margin:auto"><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">generations = [<span class="number">10</span>,<span class="number">20</span>,<span class="number">40</span>,<span class="number">60</span>,<span class="number">80</span>]</span><br><span class="line">sns.lmplot(<span class="string">'Age'</span>,<span class="string">'Survived'</span>,hue=<span class="string">'Sex'</span>,data=titanic_df,palette=<span class="string">'winter'</span>,x_bins=generations)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/14/Titanic-analysis/fig16.png" style="display:block;margin:auto"></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/data-science/">data science</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Kaggle/">Kaggle</a><a href="/tags/pandas/">pandas</a><a href="/tags/python/">python</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.flowrocky.com/2015/10/14/Titanic-analysis/" data-title="Titanic data analysis | Flow Rock" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/10/13/PCA-algorithm/"  title="PCA的数学原理">
+ <strong>下一篇：</strong><br/> 
+ <span>PCA的数学原理
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/coding/" title="coding">coding<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/data-science/" title="data science">data science<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/life/" title="life">life<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dp/" title="dp">dp<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pandas/" title="pandas">pandas<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/photo/" title="photo">photo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/matplotlib/" title="matplotlib">matplotlib<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/recursive/" title="recursive">recursive<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/math/" title="math">math<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pca/" title="pca">pca<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Numpy/" title="Numpy">Numpy<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/seaborn/" title="seaborn">seaborn<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Dream shall never fade <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/flowrock" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/ruoyanliu" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:rl1969@nyu.edu" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="Ruoyan Liu">Ruoyan Liu</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'flowrock';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-68266631-1', 'www.flowrocky.com');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
