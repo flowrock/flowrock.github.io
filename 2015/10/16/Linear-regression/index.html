@@ -1,0 +1,609 @@
+
+ <!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Linear regression | Flow Rock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Ruoyan Liu">
+    
+
+    
+    <meta name="description" content="Ordinary Linear RegressionOrdinary linear regression does not have regularization, it is easy to implement using numpy and scikit-learning.
+We use sklearn’s built-in boston housing price dataset for e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linear regression">
+<meta property="og:url" content="http://www.flowrocky.com/2015/10/16/Linear-regression/index.html">
+<meta property="og:site_name" content="Flow Rock">
+<meta property="og:description" content="Ordinary Linear RegressionOrdinary linear regression does not have regularization, it is easy to implement using numpy and scikit-learning.
+We use sklearn’s built-in boston housing price dataset for e">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/16/Linear-regression/fig1.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/16/Linear-regression/fig2.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/16/Linear-regression/fig3.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/16/Linear-regression/fig4.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/16/Linear-regression/fig5.png">
+<meta property="og:updated_time" content="2015-10-16T15:58:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linear regression">
+<meta name="twitter:description" content="Ordinary Linear RegressionOrdinary linear regression does not have regularization, it is easy to implement using numpy and scikit-learning.
+We use sklearn’s built-in boston housing price dataset for e">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
+    
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Flow Rock">Flow Rock</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="Search" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/16/Linear-regression/" title="Linear regression" itemprop="url">Linear regression</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-16T13:33:34.000Z" itemprop="datePublished"> Published 2015-10-16</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ordinary_Linear_Regression"><span class="toc-number">1.</span> <span class="toc-text">Ordinary Linear Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Quick_view_of_data"><span class="toc-number">1.1.</span> <span class="toc-text">Quick view of data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using_training_and_validation"><span class="toc-number">1.2.</span> <span class="toc-text">Using training and validation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fitting_and_predicting"><span class="toc-number">1.3.</span> <span class="toc-text">Fitting and predicting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Residual_plots"><span class="toc-number">1.4.</span> <span class="toc-text">Residual plots</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="Ordinary_Linear_Regression"><em>Ordinary Linear Regression</em></h2><p>Ordinary linear regression does not have regularization, it is easy to implement using numpy and scikit-learning.</p>
+<p>We use sklearn’s built-in boston housing price dataset for example.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">sns.set_style(<span class="string">'whitegrid'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_boston</span><br><span class="line"></span><br><span class="line">boston = load_boston()</span><br><span class="line"><span class="keyword">print</span> boston.DESCR <span class="comment">#print the description of the boston housing price dataset</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Quick_view_of_data"><strong>Quick view of data</strong></h3><p>After getting the data, we want to have a quick view of the distribution of the price.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.hist(boston.target,bins=<span class="number">50</span>) <span class="comment">#here boston data has attribute 'target' which is the price list</span></span><br><span class="line">plt.xlabel(<span class="string">'Price in $1000s'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Number of houses'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/16/Linear-regression/fig1.png" style="display:block;margin:auto"><br>We may have intuitive idea that housing price is relevent to the number of rooms.<br>Let’s see the scatter plot of housing price and number of rooms.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.scatter(boston.data[:,<span class="number">5</span>],boston.target) <span class="comment">#boston.data is a numpy array object which is about the features data. Its dimension is 506*13, which rows are examples, columns are features</span></span><br><span class="line">plt.ylabel(<span class="string">'Price in $1000s'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Number of rooms'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/16/Linear-regression/fig2.png" style="display:block;margin:auto"><br>We now use pandas to transform the boston dataset into a DataFrame. Then we use seaborn to perform an lmplot on the DataFrame to reproduce the scatter plot with a linear fit line.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">boston_df = DataFrame(boston.data)</span><br><span class="line">boston_df.columns = boston.feature_names</span><br><span class="line">boston_df.head</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/16/Linear-regression/fig3.png" style="display:block;margin:auto"><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">boston_df[<span class="string">'Price'</span>] = boston.target</span><br><span class="line">sns.lmplot(<span class="string">'RM'</span>,<span class="string">'Price'</span>,data=boston_df)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/16/Linear-regression/fig4.png" style="display:block;margin:auto"></p>
+<h3 id="Using_training_and_validation"><strong>Using training and validation</strong></h3><p>We now want to use scikit-learn to learn the coeffients of the variables for best fit.<br>First, we split the data into training set and validation set. Usually, the training set has much more examples than the validation set.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line">lreg = LinearRegression()</span><br><span class="line">X_multi = boston_df.drop(<span class="string">'Price'</span>,<span class="number">1</span>) <span class="comment">#drop column "Price" in </span></span><br><span class="line">X_train, X_test, Y_train, Y_test = sklearn.cross_validation.train_test_split(X_multi,boston_df.Price) <span class="comment">#if no options test_size or train_size (both in fraction from 0 to 1) specified, the default is 3:1</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Fitting_and_predicting"><strong>Fitting and predicting</strong></h3><p>We now want to get coefficients of variables for best fit.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lreg.fit(X_train,Y_train)</span><br></pre></td></tr></table></figure></p>
+<p>After running <strong>lreg.fit()</strong>, the results are stored in variables defined in lreg.<br>Let’s take a look.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lreg.intercept_ <span class="comment">#get the intercept, namely the coeffient of the constant item x0</span></span><br><span class="line"><span class="number">39.711942022652977</span></span><br><span class="line">lreg.coef_ <span class="comment">#the coeffient list corresponding to the variable list</span></span><br><span class="line">array([ -<span class="number">1.23470351e-01</span>,   <span class="number">6.41872776e-02</span>,  -<span class="number">7.69234535e-04</span>,</span><br><span class="line">         <span class="number">2.44905559e+00</span>,  -<span class="number">1.53974890e+01</span>,   <span class="number">3.17601940e+00</span>,</span><br><span class="line">        -<span class="number">8.26049560e-03</span>,  -<span class="number">1.62030035e+00</span>,   <span class="number">3.12002815e-01</span>,</span><br><span class="line">        -<span class="number">1.26918519e-02</span>,  -<span class="number">9.03839389e-01</span>,   <span class="number">8.64791587e-03</span>,</span><br><span class="line">        -<span class="number">5.16409364e-01</span>])</span><br><span class="line"><span class="comment">#let's make it a litter prettier</span></span><br><span class="line">coeff_df = DataFrame(boston_df.columns)</span><br><span class="line">coeff.columns = [<span class="string">'Features'</span>]</span><br><span class="line">coeff_df[<span class="string">"Coefficient Estimation"</span>] = pd.Series(lreg.coef_)</span><br><span class="line">coeff_df</span><br><span class="line"></span><br><span class="line">Features    Coefficients</span><br><span class="line"><span class="number">0</span>   CRIM    -<span class="number">0.123470</span></span><br><span class="line"><span class="number">1</span>   ZN      <span class="number">0.064187</span></span><br><span class="line"><span class="number">2</span>   INDUS   -<span class="number">0.000769</span></span><br><span class="line"><span class="number">3</span>   CHAS    <span class="number">2.449056</span></span><br><span class="line"><span class="number">4</span>   NOX     -<span class="number">15.397489</span></span><br><span class="line"><span class="number">5</span>   RM      <span class="number">3.176019</span></span><br><span class="line"><span class="number">6</span>   AGE     -<span class="number">0.008260</span></span><br><span class="line"><span class="number">7</span>   DIS     -<span class="number">1.620300</span></span><br><span class="line"><span class="number">8</span>   RAD     <span class="number">0.312003</span></span><br><span class="line"><span class="number">9</span>   TAX     -<span class="number">0.012692</span></span><br><span class="line"><span class="number">10</span>  PTRATIO -<span class="number">0.903839</span></span><br><span class="line"><span class="number">11</span>  B       <span class="number">0.008648</span></span><br><span class="line"><span class="number">12</span>  LSTAT   -<span class="number">0.516409</span></span><br><span class="line"><span class="number">13</span>  Price   NaN</span><br></pre></td></tr></table></figure></p>
+<p>Now we can use this best-fit coefficient set to predict housing price.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pred_train = lreg.predict(X_train)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"Fit a model X_train, and calculate MSE with Y_train: %.2f"</span> % np.mean((Y_train-pred_train)**<span class="number">2</span>)</span><br><span class="line">Fit a model X_train, <span class="keyword">and</span> calculate MSE <span class="keyword">with</span> Y_train: <span class="number">22.25</span></span><br><span class="line"></span><br><span class="line">pred_test = lreg.predict(X_test)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"Fit a model X_test, and calculate MSE with Y_test: %.2f"</span> % np.mean((Y_test-pred_test)**<span class="number">2</span>)</span><br><span class="line">Fit a model X_test, <span class="keyword">and</span> calculate MSE <span class="keyword">with</span> Y_test: <span class="number">22.04</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Residual_plots"><strong>Residual plots</strong></h3><p>Viewing residual plots is very important to know if our prediction is problematic.<br>The defination of residue is:<br>$$<br>Residual=Observedvalue−Predictedvalue<br>$$<br>The residue can be regarded as noise and should be in normal distribution. If the residual plots does not show in random pattern, then there may be some problems in our feature selection or model selection. For detailed information, check out this blog <a href="http://blog.minitab.com/blog/adventures-in-statistics/why-you-need-to-check-your-residual-plots-for-regression-analysis" target="_blank" rel="external">http://blog.minitab.com/blog/adventures-in-statistics/why-you-need-to-check-your-residual-plots-for-regression-analysis</a>.</p>
+<p>Now, let’s take a look at the residue plot of our housing price example.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_res = plt.scatter(pred_train,(pred_train-Y_train),c=<span class="string">'b'</span>,alpha=<span class="number">0.5</span>)</span><br><span class="line">test_res = plt.scatter(pred_test,(pred_test-Y_test),c=<span class="string">'r'</span>,alpha=<span class="number">0.5</span>)</span><br><span class="line">plt.hlines(y=<span class="number">0</span>,xmin=-<span class="number">10</span>,xmax=<span class="number">50</span>)</span><br><span class="line">plt.legend((train_res,test_res),(<span class="string">'Training'</span>,<span class="string">'Test'</span>),loc=<span class="string">'lower left'</span>)</span><br><span class="line">plt.title(<span class="string">'Residual Plots'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/16/Linear-regression/fig5.png" style="display:block;margin:auto"><br>It seems that most of the residuals are scattered randomly around 0, but there is still some residuals at lower right of plot has some linear pattern. So more analysis may be needed.</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linear-regression/">linear regression</a><a href="/tags/scikit-learn/">scikit-learn</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.flowrocky.com/2015/10/16/Linear-regression/" data-title="Linear regression | Flow Rock" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/10/14/Titanic-analysis/"  title="Titanic data analysis">
+ <strong>下一篇：</strong><br/> 
+ <span>Titanic data analysis
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ordinary_Linear_Regression"><span class="toc-number">1.</span> <span class="toc-text">Ordinary Linear Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Quick_view_of_data"><span class="toc-number">1.1.</span> <span class="toc-text">Quick view of data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using_training_and_validation"><span class="toc-number">1.2.</span> <span class="toc-text">Using training and validation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fitting_and_predicting"><span class="toc-number">1.3.</span> <span class="toc-text">Fitting and predicting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Residual_plots"><span class="toc-number">1.4.</span> <span class="toc-text">Residual plots</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/coding/" title="coding">coding<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/data-science/" title="data science">data science<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/life/" title="life">life<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dp/" title="dp">dp<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pandas/" title="pandas">pandas<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/photo/" title="photo">photo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/matplotlib/" title="matplotlib">matplotlib<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/math/" title="math">math<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pca/" title="pca">pca<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Numpy/" title="Numpy">Numpy<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linear-regression/" title="linear regression">linear regression<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/scikit-learn/" title="scikit-learn">scikit-learn<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/seaborn/" title="seaborn">seaborn<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/recursive/" title="recursive">recursive<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Dream shall never fade <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/flowrock" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/ruoyanliu" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:rl1969@nyu.edu" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="Ruoyan Liu">Ruoyan Liu</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'flowrock';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-68266631-1', 'www.flowrocky.com');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
