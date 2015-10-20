@@ -1,0 +1,609 @@
+
+ <!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Stock Market Analysis | Flow Rock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Ruoyan Liu">
+    
+
+    
+    <meta name="description" content="Basic Analysis of Stock InformationFirst import related packages and classes.import pandas as pdfrom pandas import Series, DataFrameimport numpy as npimport matplotlib.pyplot as pltimport seaborn as s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stock Market Analysis">
+<meta property="og:url" content="http://www.flowrocky.com/2015/10/17/Stock-Market-Analysis/index.html">
+<meta property="og:site_name" content="Flow Rock">
+<meta property="og:description" content="Basic Analysis of Stock InformationFirst import related packages and classes.import pandas as pdfrom pandas import Series, DataFrameimport numpy as npimport matplotlib.pyplot as pltimport seaborn as s">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/17/Stock-Market-Analysis/fig2.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/17/Stock-Market-Analysis/fig3.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/17/Stock-Market-Analysis/fig4.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/17/Stock-Market-Analysis/fig5.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/17/Stock-Market-Analysis/fig6.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/17/Stock-Market-Analysis/fig7.png">
+<meta property="og:image" content="http://www.flowrocky.com/2015/10/17/Stock-Market-Analysis/fig8.png">
+<meta property="og:updated_time" content="2015-10-20T01:56:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Stock Market Analysis">
+<meta name="twitter:description" content="Basic Analysis of Stock InformationFirst import related packages and classes.import pandas as pdfrom pandas import Series, DataFrameimport numpy as npimport matplotlib.pyplot as pltimport seaborn as s">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
+    
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Flow Rock">Flow Rock</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="Search" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/17/Stock-Market-Analysis/" title="Stock Market Analysis" itemprop="url">Stock Market Analysis</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-17T13:48:25.000Z" itemprop="datePublished"> Published 2015-10-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic_Analysis_of_Stock_Information"><span class="toc-number">1.</span> <span class="toc-text">Basic Analysis of Stock Information</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Daily_Return_Analysis"><span class="toc-number">2.</span> <span class="toc-text">Daily Return Analysis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Risk_Analysis"><span class="toc-number">3.</span> <span class="toc-text">Risk Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Value_risk_using_“bootstrap”_method"><span class="toc-number">3.1.</span> <span class="toc-text">Value risk using “bootstrap” method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Value_at_Risk_using_the_Monte_Carlo_method"><span class="toc-number">3.2.</span> <span class="toc-text">Value at Risk using the Monte Carlo method</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="Basic_Analysis_of_Stock_Information"><em>Basic Analysis of Stock Information</em></h2><p>First import related packages and classes.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">sns.set_style(<span class="string">'whitegrid'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pandas.io.data <span class="keyword">import</span> DataReader</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> division</span><br></pre></td></tr></table></figure></p>
+<p>Use Yahoo and pandas to grab some data for some tech stocks.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tech_list = [<span class="string">'AAPL'</span>,<span class="string">'GOOG'</span>,<span class="string">'MSFT'</span>,<span class="string">'AMZN'</span>]</span><br><span class="line">end = datetime.now()</span><br><span class="line">start = datetime(end.year-<span class="number">1</span>,end.month,end.day)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> stock <span class="keyword">in</span> tech_list:</span><br><span class="line">    globals()[stock] = DataReader(stock,<span class="string">'yahoo'</span>,start,end) <span class="comment">#to claim each stock dataframe as a global variable. More precisely, in a global dictionary.</span></span><br></pre></td></tr></table></figure></p>
+<p>Now we can look up Apple stock for example.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">AAPL.describe() </span><br><span class="line">        Open        High        Low         Close       Volume          Adj Close</span><br><span class="line">count   <span class="number">252.000000</span>  <span class="number">252.000000</span>  <span class="number">252.000000</span>  <span class="number">252.000000</span>  <span class="number">2.520000e+02</span>    <span class="number">252.000000</span></span><br><span class="line">mean    <span class="number">119.286191</span>  <span class="number">120.373730</span>  <span class="number">118.019326</span>  <span class="number">119.200198</span>  <span class="number">5.306890e+07</span>    <span class="number">118.343433</span></span><br><span class="line">std     <span class="number">8.479030</span>    <span class="number">8.249642</span>    <span class="number">8.586846</span>    <span class="number">8.377208</span>    <span class="number">2.092469e+07</span>    <span class="number">8.446361</span></span><br><span class="line">min     <span class="number">94.870003</span>   <span class="number">99.000000</span>   <span class="number">92.000000</span>   <span class="number">97.669998</span>   <span class="number">1.447960e+07</span>    <span class="number">96.028422</span></span><br><span class="line"><span class="number">25</span>%     <span class="number">112.167500</span>  <span class="number">113.239998</span>  <span class="number">110.447498</span>  <span class="number">112.092503</span>  <span class="number">3.861532e+07</span>    <span class="number">111.209754</span></span><br><span class="line"><span class="number">50</span>%     <span class="number">118.680001</span>  <span class="number">119.914997</span>  <span class="number">117.720001</span>  <span class="number">118.930000</span>  <span class="number">4.826690e+07</span>    <span class="number">117.704435</span></span><br><span class="line"><span class="number">75</span>%     <span class="number">127.142502</span>  <span class="number">127.907497</span>  <span class="number">125.982502</span>  <span class="number">126.912502</span>  <span class="number">6.174608e+07</span>    <span class="number">126.029532</span></span><br><span class="line">max     <span class="number">134.460007</span>  <span class="number">134.539993</span>  <span class="number">131.399994</span>  <span class="number">133.000000</span>  <span class="number">1.622063e+08</span>    <span class="number">131.942761</span></span><br></pre></td></tr></table></figure></p>
+<!-- <img src="/2015/10/17/Stock-Market-Analysis/fig1.png" style="display:block;margin:auto"> -->
+<p>We now want to have a general idea about Apple stock price in the last year. We use adjusted close price.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">AAPL[<span class="string">'Adj Close'</span>].plot(legend=<span class="keyword">True</span>,figsize=(<span class="number">10</span>,<span class="number">4</span>))</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/17/Stock-Market-Analysis/fig2.png" style="display:block;margin:auto"><br>Also the volume.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">AAPL[<span class="string">'Volume'</span>].plot(legend=<span class="keyword">True</span>,figsize=(<span class="number">10</span>,<span class="number">4</span>))</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/17/Stock-Market-Analysis/fig3.png" style="display:block;margin:auto"><br>To smooth the change, a widely used way is moving average.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ma_day = [<span class="number">10</span>,<span class="number">20</span>,<span class="number">50</span>]</span><br><span class="line"><span class="keyword">for</span> ma <span class="keyword">in</span> ma_day:</span><br><span class="line">    column_name = <span class="string">"MA for %s days"</span>%(str(ma))</span><br><span class="line">    AAPL[column_name] = pd.rolling_mean(AAPL[<span class="string">'Adj Close'</span>],ma)</span><br><span class="line">AAPL[[<span class="string">'Adj Close'</span>,<span class="string">'MA for 10 days'</span>,<span class="string">'MA for 20 days'</span>,<span class="string">'MA for 50 days'</span>]].plot(subplots=<span class="keyword">False</span>,figsize=(<span class="number">10</span>,<span class="number">4</span>))</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/17/Stock-Market-Analysis/fig4.png" style="display:block;margin:auto"></p>
+<h2 id="Daily_Return_Analysis"><em>Daily Return Analysis</em></h2><p>We now want to know the change of daily return which is the percentage of of change compared with the last day.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">AAPL[<span class="string">'Daily Return'</span>] = AAPL[<span class="string">'Adj Close'</span>].pct_change()</span><br><span class="line">AAPL[<span class="string">'Daily Return'</span>].plot(figsize=(<span class="number">12</span>,<span class="number">4</span>),legend=<span class="keyword">True</span>,linestyle=<span class="string">'--'</span>,marker=<span class="string">'o'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/17/Stock-Market-Analysis/fig5.png" style="display:block;margin:auto"><br>We can plot the histogram and kde of daily return distribution on the same figure use <strong>distplot</strong>.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.distplot(AAPL[<span class="string">'Daily Return'</span>].dropna(),bins=<span class="number">100</span>,color=<span class="string">'purple'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/17/Stock-Market-Analysis/fig6.png" style="display:block;margin:auto"><br>We now want to compare the stock price change between two companies to see if there is relationship. We first withdraw all adjusted close prices of the four companies into a single dataframe.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">closing_df = DataReader([<span class="string">'AAPL'</span>,<span class="string">'GOOG'</span>,<span class="string">'MSFT'</span>,<span class="string">'AMZN'</span>],<span class="string">'yahoo'</span>,start,end)[<span class="string">'Adj Close'</span>]</span><br><span class="line">tech_rets = closing_df.pct_change() <span class="comment">#the daily return can be seen as the normalized parameter for comparison</span></span><br><span class="line">sns.jointplot(<span class="string">'GOOG'</span>,<span class="string">'AMZN'</span>,data=tech_rets,kind=<span class="string">'scatter'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/17/Stock-Market-Analysis/fig7.png" style="display:block;margin:auto"><br>To see pearson between any two companies.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.corrplot(tech_rets.dropna(),annot=<span class="keyword">True</span>) <span class="comment">#annot means annotation, show correlation metrics</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/2015/10/17/Stock-Market-Analysis/fig8.png" style="display:block;margin:auto"></p>
+<h2 id="Risk_Analysis"><em>Risk Analysis</em></h2><h3 id="Value_risk_using_“bootstrap”_method"><strong>Value risk using “bootstrap” method</strong></h3><p>For this method we will calculate the empirical quantiles from a histogram of daily returns. Basically, q-uantile divide the <strong>CDF</strong> into q equally sized areas. For more information on quantiles, check out this link: <a href="http://en.wikipedia.org/wiki/Quantile" target="_blank" rel="external">http://en.wikipedia.org/wiki/Quantile</a>.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tech_rets.AAPL.dropna().quantile(<span class="number">0.05</span>)</span><br><span class="line">-<span class="number">0.025267665309060883</span></span><br></pre></td></tr></table></figure></p>
+<p>The 0.05 empirical quantile of daily returns is at -0.025. That means that with 95% confidence, our worst daily loss will not exceed 2.5%.</p>
+<h3 id="Value_at_Risk_using_the_Monte_Carlo_method"><strong>Value at Risk using the Monte Carlo method</strong></h3>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/data-science/">data science</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/pandas/">pandas</a><a href="/tags/seaborn/">seaborn</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.flowrocky.com/2015/10/17/Stock-Market-Analysis/" data-title="Stock Market Analysis | Flow Rock" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/10/16/Linear-regression/"  title="Linear Regression">
+ <strong>下一篇：</strong><br/> 
+ <span>Linear Regression
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic_Analysis_of_Stock_Information"><span class="toc-number">1.</span> <span class="toc-text">Basic Analysis of Stock Information</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Daily_Return_Analysis"><span class="toc-number">2.</span> <span class="toc-text">Daily Return Analysis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Risk_Analysis"><span class="toc-number">3.</span> <span class="toc-text">Risk Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Value_risk_using_“bootstrap”_method"><span class="toc-number">3.1.</span> <span class="toc-text">Value risk using “bootstrap” method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Value_at_Risk_using_the_Monte_Carlo_method"><span class="toc-number">3.2.</span> <span class="toc-text">Value at Risk using the Monte Carlo method</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/coding/" title="coding">coding<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/data-science/" title="data science">data science<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/life/" title="life">life<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pandas/" title="pandas">pandas<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dp/" title="dp">dp<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/seaborn/" title="seaborn">seaborn<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/photo/" title="photo">photo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/recursive/" title="recursive">recursive<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/math/" title="math">math<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pca/" title="pca">pca<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Numpy/" title="Numpy">Numpy<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linear-regression/" title="linear regression">linear regression<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/scikit-learn/" title="scikit-learn">scikit-learn<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/matplotlib/" title="matplotlib">matplotlib<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Dream shall never fade <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/flowrock" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/ruoyanliu" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:rl1969@nyu.edu" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="Ruoyan Liu">Ruoyan Liu</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'flowrock';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-68266631-1', 'www.flowrocky.com');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
