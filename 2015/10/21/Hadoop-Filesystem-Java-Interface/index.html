@@ -1,0 +1,630 @@
+
+ <!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Hadoop Filesystem Java Interface Note | Flow Rock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Ruoyan Liu">
+    
+
+    
+    <meta name="description" content="The programs in this blog come from “Hadoop: The Definitive Guide” 4th edition.
+Reading Data from a Hadoop URLThis is one simplest way to read a file from a Hadoop filesystem by using java.net.URL. To">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop Filesystem Java Interface Note">
+<meta property="og:url" content="http://www.flowrocky.com/2015/10/21/Hadoop-Filesystem-Java-Interface/index.html">
+<meta property="og:site_name" content="Flow Rock">
+<meta property="og:description" content="The programs in this blog come from “Hadoop: The Definitive Guide” 4th edition.
+Reading Data from a Hadoop URLThis is one simplest way to read a file from a Hadoop filesystem by using java.net.URL. To">
+<meta property="og:updated_time" content="2015-10-22T02:28:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop Filesystem Java Interface Note">
+<meta name="twitter:description" content="The programs in this blog come from “Hadoop: The Definitive Guide” 4th edition.
+Reading Data from a Hadoop URLThis is one simplest way to read a file from a Hadoop filesystem by using java.net.URL. To">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
+    
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Flow Rock">Flow Rock</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="Search" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/21/Hadoop-Filesystem-Java-Interface/" title="Hadoop Filesystem Java Interface Note" itemprop="url">Hadoop Filesystem Java Interface Note</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-21T21:55:18.000Z" itemprop="datePublished"> Published 2015-10-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reading_Data_from_a_Hadoop_URL"><span class="toc-number">1.</span> <span class="toc-text">Reading Data from a Hadoop URL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reading_Data_Using_the_FileSystem_API"><span class="toc-number">2.</span> <span class="toc-text">Reading Data Using the FileSystem API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FSDataInputStream"><span class="toc-number">2.1.</span> <span class="toc-text">FSDataInputStream</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Writing_Data"><span class="toc-number">3.</span> <span class="toc-text">Writing Data</span></a></li></ol>
+		
+		</div>
+		
+		<p>The programs in this blog come from “Hadoop: The Definitive Guide” 4th edition.</p>
+<h2 id="Reading_Data_from_a_Hadoop_URL"><em>Reading Data from a Hadoop URL</em></h2><p>This is one simplest way to read a file from a Hadoop filesystem by using <strong>java.net.URL</strong>. To make Java recognize Hadoop’s hdfs URL, we call <strong>setURLStreamHandlerFactory()</strong> on URL with an instance of <strong>FsUrlStreamHandlerFactory</strong>. </p>
+<p>Note this method can be called only once per JVM, so it is typically executed in a static block. This also means reading data in this way could be blocked by another program that sets a <strong>URLStreaHandlerFactory</strong>.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.FsUrlStreamHandlerFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IOUtils;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">URLCat</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        URL.setURLStreamHandlerFactory(<span class="keyword">new</span> FsUrlStreamHandlerFactory());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        InputStream in = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            in = <span class="keyword">new</span> URL(args[<span class="number">0</span>]).openStream();</span><br><span class="line">            IOUtils.copyBytes(in, System.out, <span class="number">4096</span>, <span class="keyword">false</span>); <span class="comment">//the last argument is to close stream, here uses false because System.out doesn't need to close, we close InputStream in finally block</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            IOUtils.closeStream(in); </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>To execute the code, export as jar file and do like below<br><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">% <span class="tag">hadoop</span> <span class="tag">jar</span> <span class="tag">hdfs</span><span class="class">.jar</span> <span class="tag">com</span><span class="class">.test</span><span class="class">.URLCat</span> <span class="rule"><span class="attribute">hdfs</span>:<span class="value">//localhost/user/hduser/Web_Log.txt</span></span></span><br></pre></td></tr></table></figure></p>
+<p>The program will connect to namenode first. In this example, make sure the namenode is running on localhost:8020 before running. If not running on 8020 port, need to modify core-site.xml.</p>
+<h2 id="Reading_Data_Using_the_FileSystem_API"><em>Reading Data Using the FileSystem API</em></h2><p>In case the URL method cannot be used, we can use FileSystem API to open an input stream for a file. </p>
+<p>A file in a Hadoop filesystem is represented by a <strong>Hadoop Path object</strong> (note not a java.io.File object)<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.net.URI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.FileSystem;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IOUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileSystemCat</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String uri = args[<span class="number">0</span>];</span><br><span class="line">        Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">        FileSystem fs = FileSystem.get(URI.create(uri),conf); <span class="comment">// it also works without the first parameter. If you want to specify local filesystem, use FileSystem.getLocal(conf) instead</span></span><br><span class="line">        InputStream in = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            in = fs.open(<span class="keyword">new</span> Path(uri));</span><br><span class="line">            IOUtils.copyBytes(in, System.out, <span class="number">4096</span>, <span class="keyword">false</span>);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            IOUtils.closeStream(in);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>To run this code, no need to add “hdfs://localhost” before path, just “/user/hduser/Web_Log.txt”.</p>
+<h3 id="FSDataInputStream"><strong>FSDataInputStream</strong></h3><p>The open() method on <strong>FileSystem</strong> actually returns an FSDataInputStream rather than a standard java.io class. This class is a specialization of java.io.DataInputStream with support for random access.<br>The FSDatInputStream is defined as:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.hadoop.fs</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FSDataInputStream</span> <span class="keyword">extends</span> <span class="title">DataInputStream</span> <span class="keyword">implements</span> <span class="title">Seekable</span>, <span class="title">PositionedReadable</span> </span>&#123;</span><br><span class="line">    <span class="comment">// implementation elided</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>The Seekable interface permits seeking to a position in the file and provides a query method for the current offset from the start of the file (getPos()):<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Seekable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">seek</span><span class="params">(<span class="keyword">long</span> pos)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">getPos</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>To use this, for example, if we want to jump to the beginning of the file, we can use:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">in.seek(<span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
+<p>However, seek() is a relatively expensive operation and should be done sparingly, the application access patterns should rely on streaming data mostly.</p>
+<h2 id="Writing_Data"><em>Writing Data</em></h2><p>The simplest method for creating a file takes a <strong>Path</strong> object and returns an output stream:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> FSDataOutputStream <span class="title">create</span><span class="params">(Path f)</span> <span class="keyword">throws</span> IOException</span></span><br></pre></td></tr></table></figure></p>
+<p>Note that create() method create any parent directories of the file to be wirtten that don’t already exist. If you want the write to fail when the parent directory doesn’t exist, you should check for the existence of the parent directory first by calling the exists() method. Alternatively, use <strong>FileContext</strong>, which allows you to control whether parent directories are created or not.</p>
+<p>A useful callback interface is <strong>Progressable</strong> which can notify the progress of the data being written to the datanodes.</p>
+<p>For example<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStream;</span><br><span class="line"><span class="keyword">import</span> java.net.URI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.FileSystem;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IOUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.Progressable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileCopyWithProgress</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String localSrc = args[<span class="number">0</span>];</span><br><span class="line">        String dst = args[<span class="number">1</span>];</span><br><span class="line">        </span><br><span class="line">        InputStream in = <span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> FileInputStream(localSrc));</span><br><span class="line">        </span><br><span class="line">        Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">        FileSystem fs = FileSystem.get(URI.create(dst),conf);</span><br><span class="line">        OutputStream out = fs.create(<span class="keyword">new</span> Path(dst), <span class="keyword">new</span> Progressable() &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="annotation">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">progress</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"."</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        IOUtils.copyBytes(in,out,<span class="number">4096</span>,<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Note that every time the progress() method is called by Hadoop is after each 64KB packet of data written to the datanode pipeline. (This is not specified by the API, may change in later versions of Hadoop)</p>
+<p>Like FSDataInputStrem, FSDataOutputStream also has a method for querying the current position in the file.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getPos</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="comment">//implementation elided</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>However, FSDataOutputStream does not permit seeking, because HDFS allows only sequential writes to an open file or appends to an already written file.</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/big-data/">big data</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/hadoop/">hadoop</a><a href="/tags/java/">java</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.flowrocky.com/2015/10/21/Hadoop-Filesystem-Java-Interface/" data-title="Hadoop Filesystem Java Interface Note | Flow Rock" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/10/20/functional-programming/"  title="傻瓜函数式编程">
+ <strong>下一篇：</strong><br/> 
+ <span>傻瓜函数式编程
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reading_Data_from_a_Hadoop_URL"><span class="toc-number">1.</span> <span class="toc-text">Reading Data from a Hadoop URL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reading_Data_Using_the_FileSystem_API"><span class="toc-number">2.</span> <span class="toc-text">Reading Data Using the FileSystem API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FSDataInputStream"><span class="toc-number">2.1.</span> <span class="toc-text">FSDataInputStream</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Writing_Data"><span class="toc-number">3.</span> <span class="toc-text">Writing Data</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/big-data/" title="big data">big data<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/coding/" title="coding">coding<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/data-science/" title="data science">data science<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/life/" title="life">life<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/leetcode/" title="leetcode">leetcode<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pandas/" title="pandas">pandas<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dp/" title="dp">dp<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/seaborn/" title="seaborn">seaborn<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/pca/" title="pca">pca<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/photo/" title="photo">photo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/functional-programming/" title="functional programming">functional programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kaggle/" title="Kaggle">Kaggle<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/article/" title="article">article<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/recursive/" title="recursive">recursive<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/math/" title="math">math<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Xi-an/" title="Xi&#39;an">Xi&#39;an<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Numpy/" title="Numpy">Numpy<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linear-regression/" title="linear regression">linear regression<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/scikit-learn/" title="scikit-learn">scikit-learn<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hadoop/" title="hadoop">hadoop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/matplotlib/" title="matplotlib">matplotlib<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Dream shall never fade <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/flowrock" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/ruoyanliu" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:rl1969@nyu.edu" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="Ruoyan Liu">Ruoyan Liu</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'flowrock';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-68266631-1', 'www.flowrocky.com');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
