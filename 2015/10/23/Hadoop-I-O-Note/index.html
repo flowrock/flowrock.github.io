@@ -4,26 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Unique Binary Search Trees | Flow Rock</title>
+    <title>Hadoop I/O Note | Flow Rock</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Ruoyan Liu">
     
 
     
-    <meta name="description" content="Problem DescriptionGiven n, how many structurally unique BST’s (binary search trees) that store values 1…n?
-For example,Given n = 3, there are a total of 5 unique BST’s.1         3     3      2      1">
+    <meta name="description" content="CompressionThere are many compression/decompression algorithms that can be used in Hadoop, but a splittable compression format is especially suitable for MapReduce, since it can utilize the multiple m">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unique Binary Search Trees">
-<meta property="og:url" content="http://www.flowrocky.com/2015/10/03/Unique-Binary-Search-Trees/index.html">
+<meta property="og:title" content="Hadoop I/O Note">
+<meta property="og:url" content="http://www.flowrocky.com/2015/10/23/Hadoop-I-O-Note/index.html">
 <meta property="og:site_name" content="Flow Rock">
-<meta property="og:description" content="Problem DescriptionGiven n, how many structurally unique BST’s (binary search trees) that store values 1…n?
-For example,Given n = 3, there are a total of 5 unique BST’s.1         3     3      2      1">
-<meta property="og:updated_time" content="2015-10-03T20:21:14.000Z">
+<meta property="og:description" content="CompressionThere are many compression/decompression algorithms that can be used in Hadoop, but a splittable compression format is especially suitable for MapReduce, since it can utilize the multiple m">
+<meta property="og:updated_time" content="2015-10-23T20:31:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unique Binary Search Trees">
-<meta name="twitter:description" content="Problem DescriptionGiven n, how many structurally unique BST’s (binary search trees) that store values 1…n?
-For example,Given n = 3, there are a total of 5 unique BST’s.1         3     3      2      1">
+<meta name="twitter:title" content="Hadoop I/O Note">
+<meta name="twitter:description" content="CompressionThere are many compression/decompression algorithms that can be used in Hadoop, but a splittable compression format is especially suitable for MapReduce, since it can utilize the multiple m">
 
     
     <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
@@ -73,14 +70,14 @@ For example,Given n = 3, there are a total of 5 unique BST’s.1         3     3
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/03/Unique-Binary-Search-Trees/" title="Unique Binary Search Trees" itemprop="url">Unique Binary Search Trees</a>
+      <a href="/2015/10/23/Hadoop-I-O-Note/" title="Hadoop I/O Note" itemprop="url">Hadoop I/O Note</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-03T15:07:09.000Z" itemprop="datePublished"> Published 2015-10-03</time>
+    <time datetime="2015-10-23T18:58:54.000Z" itemprop="datePublished"> Published 2015-10-23</time>
     
   </p>
 </header>
@@ -89,18 +86,20 @@ For example,Given n = 3, there are a total of 5 unique BST’s.1         3     3
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem_Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Idea"><span class="toc-number">2.</span> <span class="toc-text">Idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">3.</span> <span class="toc-text">Solution</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Compression"><span class="toc-number">1.</span> <span class="toc-text">Compression</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Compression-1"><span class="toc-number">1.1.</span> <span class="toc-text">Compression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decompression"><span class="toc-number">1.2.</span> <span class="toc-text">Decompression</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="Problem_Description"><em>Problem Description</em></h2><p>Given n, how many structurally unique BST’s (binary search trees) that store values 1…n?</p>
-<p>For example,<br>Given n = 3, there are a total of 5 unique BST’s.<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">1         3     3      2      1&#10; \       /     /      / \      \&#10;  3     2     1      1   3      2&#10; /     /       \                 \&#10;2     1         2                 3</span><br></pre></td></tr></table></figure></p>
-<h2 id="Idea"><em>Idea</em></h2><p>If we are able to solve for n-1, then we can solve n, this is a recursive idea. Therefore, we can use dp to solve this problem.</p>
-<p>From the basic cases, when n=0, then there is only an empty tree, so dp[0] = 1.</p>
-<p>When n=1, the tree has only one node, dp[1] = 1.</p>
-<p>When n=2, dp[2] = dp[0]*dp[1]+dp[1]*dp[0]. The idea behind this is that when we let node1 be the root, there is no node left of node1 and there is only node2 right of node1, so there are dp[0]*dp[1] different cases. Similarly, when we let node2 be the root, there is no node right of node2, so there are dp[1]*dp[0] cases. </p>
-<p>From this relation, we can know for an arbitrary n&gt;=2, we let the root be node[1..n] and the number of unique BSTs is $\displaystyle\sum_{i=1}^{n} dp[i-1] \times dp[n-i]$</p>
-<h2 id="Solution"><em>Solution</em></h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=n; i++) </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;i; j++)</span><br><span class="line">            dp[i] += dp[j]*dp[i-<span class="number">1</span>-j];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+		<h2 id="Compression"><em>Compression</em></h2><p>There are many compression/decompression algorithms that can be used in Hadoop, but a splittable compression format is especially suitable for MapReduce, since it can utilize the multiple machines in parallel.</p>
+<p>A <strong>codec</strong> is the implementation of a compression-decompression algorithm. In Hadoop, a codec is represented by an implementation of the CompressionCodec interface. </p>
+<h3 id="Compression-1"><strong>Compression</strong></h3><p>We first use Hadoop’s library ReflectionUtils to get codec class from name, and compress the text we insert in to compressed output stream.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IOUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.compress.CompressionCodec;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.compress.CompressionOutputStream;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.ReflectionUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StreamCompressor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        String codecClassname = args[<span class="number">0</span>];</span><br><span class="line">        Class&lt;?&gt; codecClass = Class.forName(codecClassname);</span><br><span class="line">        Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">        CompressionCodec codec </span><br><span class="line">        = (CompressionCodec)ReflectionUtils.newInstance(codecClass, conf);</span><br><span class="line">        CompressionOutputStream out = codec.createOutputStream(System.out);</span><br><span class="line">        IOUtils.copyBytes(System.in, out, <span class="number">4096</span>, <span class="keyword">false</span>);</span><br><span class="line">        out.finish();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>To verify, we compress the text “Hadoop compression example” into gzip format and pipe to gunzip to unzip.<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">% echo <span class="string">"Hadoop compression example"</span> | hadoop jar io.jar com.test.StreamCompressor org.apache.hadoop.io.compress.GzipCodec | gunzip -</span><br><span class="line"><span class="number">15</span>/<span class="number">10</span>/<span class="number">23</span> <span class="number">12</span>:<span class="number">39</span>:<span class="number">43</span> INFO zlib.ZlibFactory: Successfully loaded &amp; initialized native-zlib library</span><br><span class="line"><span class="number">15</span>/<span class="number">10</span>/<span class="number">23</span> <span class="number">12</span>:<span class="number">39</span>:<span class="number">43</span> INFO compress.CodecPool: Got brand-<span class="keyword">new</span> compressor [.gz]</span><br><span class="line">Hadoop compression example</span><br></pre></td></tr></table></figure></p>
+<h3 id="Decompression"><strong>Decompression</strong></h3><p>We can use <strong>CompressionCodecFactory</strong> to recogonize which codec is used for a compressed file by looking at its filename extension. For example, a file ending in .gz can be read with GzipCodec. </p>
+<p>The program below is to decompress a compressed file in whichever format locally.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStream;</span><br><span class="line"><span class="keyword">import</span> java.net.URI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.FileSystem;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IOUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.compress.CompressionCodec;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.compress.CompressionCodecFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileDecompressor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        String uri = args[<span class="number">0</span>];</span><br><span class="line">        Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">        FileSystem fs = FileSystem.get(URI.create(uri), conf);</span><br><span class="line">        </span><br><span class="line">        Path inputPath = <span class="keyword">new</span> Path(uri);</span><br><span class="line">        CompressionCodecFactory factory = <span class="keyword">new</span> CompressionCodecFactory(conf);</span><br><span class="line">        CompressionCodec codec = factory.getCodec(inputPath);</span><br><span class="line">        <span class="keyword">if</span> (codec == <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.err.println(<span class="string">"No codec found for "</span>+uri);</span><br><span class="line">            System.exit(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        String outputUri = </span><br><span class="line">                CompressionCodecFactory.removeSuffix(uri, codec.getDefaultExtension());</span><br><span class="line">        InputStream in = <span class="keyword">null</span>;</span><br><span class="line">        OutputStream out = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            in = codec.createInputStream(fs.open(inputPath));</span><br><span class="line">            out = fs.create(<span class="keyword">new</span> Path(outputUri));</span><br><span class="line">            IOUtils.copyBytes(in, out, conf);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            IOUtils.closeStream(in);</span><br><span class="line">            IOUtils.closeStream(out);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>CodecPool</strong> can be used to reuse compressors and decompressors.</p>
+<p>The compression of MapReduce output can be done in MapReduce Driver Class, by adding:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">FileOutputFormat.setCompressOutput(job, <span class="keyword">true</span>);</span><br><span class="line">FileOutputFormat.setOutputCompressorClass(job, GzipCodec.class);</span><br></pre></td></tr></table></figure></p>
+<p>The output will be compressed in <strong>part-r-xxxxx.gz</strong>.</p>
+<p>To Compress intermediate result of map, specify in configuration before job initialization.<br><figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">Configuration <span class="keyword">conf</span> = new Configuration();</span><br><span class="line"><span class="keyword">conf</span>.setBoolean(Job.MAP_OUTPUT_COMPRESS, true);</span><br><span class="line"><span class="keyword">conf</span>.setClass(Job.MAP_OUTPUT_COMPRESS_CODEC, GzipCodec.<span class="keyword">class</span>, CompressionCodec.<span class="keyword">class</span>);</span><br><span class="line">Job job = new Job(<span class="keyword">conf</span>);</span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -108,13 +107,13 @@ For example,Given n = 3, there are a total of 5 unique BST’s.1         3     3
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/coding/">coding</a>
+  <a class="article-category-link" href="/categories/big-data/">big data</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/algorithm/">algorithm</a><a href="/tags/dp/">dp</a><a href="/tags/leetcode/">leetcode</a>
+  <span></span> <a href="/tags/hadoop/">hadoop</a>
   </div>
 
 </div>
@@ -123,7 +122,7 @@ For example,Given n = 3, there are a total of 5 unique BST’s.1         3     3
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.flowrocky.com/2015/10/03/Unique-Binary-Search-Trees/" data-title="Unique Binary Search Trees | Flow Rock" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.flowrocky.com/2015/10/23/Hadoop-I-O-Note/" data-title="Hadoop I/O Note | Flow Rock" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -137,18 +136,18 @@ For example,Given n = 3, there are a total of 5 unique BST’s.1         3     3
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/10/05/Edit-Distance/" title="Edit Distance">
+ <a href="/2015/10/24/Python特殊语法：filter、map、reduce、lambda/" title="Python特殊语法：filter、map、reduce、lambda">
   <strong>上一篇：</strong><br/>
   <span>
-  Edit Distance</span>
+  Python特殊语法：filter、map、reduce、lambda</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/10/01/Xi-an-where-history-is-defined/"  title="Xi&#39;an, where history is defined">
+<a href="/2015/10/21/Hadoop-Filesystem-Java-Interface/"  title="Hadoop Filesystem Java Interface Note">
  <strong>下一篇：</strong><br/> 
- <span>Xi&#39;an, where history is defined
+ <span>Hadoop Filesystem Java Interface Note
 </span>
 </a>
 </div>
@@ -169,7 +168,7 @@ For example,Given n = 3, there are a total of 5 unique BST’s.1         3     3
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem_Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Idea"><span class="toc-number">2.</span> <span class="toc-text">Idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">3.</span> <span class="toc-text">Solution</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Compression"><span class="toc-number">1.</span> <span class="toc-text">Compression</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Compression-1"><span class="toc-number">1.1.</span> <span class="toc-text">Compression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decompression"><span class="toc-number">1.2.</span> <span class="toc-text">Decompression</span></a></li></ol></li></ol>
  
   </div>
 
