@@ -4,26 +4,35 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Edit Distance | Flow Rock</title>
+    <title>2015-10-19 -- 2015-10-25 | Flow Rock</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Ruoyan Liu">
     
 
     
-    <meta name="description" content="Problem DescriptionGiven two words word1 and word2, find the minimum number of steps required to convert word1 to word2. (each operation is counted as 1 step.)
-You have the following 3 operations perm">
+    <meta name="description" content="友盟分享 | 移动大数据平台架构思想以及实践经验关键词：大数据平台架构
+Tachyon：Spark生态系统中的分布式内存文件系统关键词：Tachyan
+Spark编程指南——Python版关键词：Spark, Python
+GC调优在Spark应用中的实践关键词：Spark, garbage collection
+黄洁：Intel Spark应用优化和实践经验关键词：Spark优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Edit Distance">
-<meta property="og:url" content="http://www.flowrocky.com/2015/10/05/Edit-Distance/index.html">
+<meta property="og:title" content="2015-10-19 -- 2015-10-25">
+<meta property="og:url" content="http://www.flowrocky.com/2015/10/25/2015-10-19-2015-10-25/index.html">
 <meta property="og:site_name" content="Flow Rock">
-<meta property="og:description" content="Problem DescriptionGiven two words word1 and word2, find the minimum number of steps required to convert word1 to word2. (each operation is counted as 1 step.)
-You have the following 3 operations perm">
-<meta property="og:updated_time" content="2015-10-05T17:13:36.000Z">
+<meta property="og:description" content="友盟分享 | 移动大数据平台架构思想以及实践经验关键词：大数据平台架构
+Tachyon：Spark生态系统中的分布式内存文件系统关键词：Tachyan
+Spark编程指南——Python版关键词：Spark, Python
+GC调优在Spark应用中的实践关键词：Spark, garbage collection
+黄洁：Intel Spark应用优化和实践经验关键词：Spark优化">
+<meta property="og:updated_time" content="2015-10-26T03:52:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Edit Distance">
-<meta name="twitter:description" content="Problem DescriptionGiven two words word1 and word2, find the minimum number of steps required to convert word1 to word2. (each operation is counted as 1 step.)
-You have the following 3 operations perm">
+<meta name="twitter:title" content="2015-10-19 -- 2015-10-25">
+<meta name="twitter:description" content="友盟分享 | 移动大数据平台架构思想以及实践经验关键词：大数据平台架构
+Tachyon：Spark生态系统中的分布式内存文件系统关键词：Tachyan
+Spark编程指南——Python版关键词：Spark, Python
+GC调优在Spark应用中的实践关键词：Spark, garbage collection
+黄洁：Intel Spark应用优化和实践经验关键词：Spark优化">
 
     
     <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
@@ -73,14 +82,14 @@ You have the following 3 operations perm">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/05/Edit-Distance/" title="Edit Distance" itemprop="url">Edit Distance</a>
+      <a href="/2015/10/25/2015-10-19-2015-10-25/" title="2015-10-19 -- 2015-10-25" itemprop="url">2015-10-19 -- 2015-10-25</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-05T17:04:53.000Z" itemprop="datePublished"> Published 2015-10-05</time>
+    <time datetime="2015-10-25T15:49:25.000Z" itemprop="datePublished"> Published 2015-10-25</time>
     
   </p>
 </header>
@@ -89,29 +98,29 @@ You have the following 3 operations perm">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem_Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Idea"><span class="toc-number">2.</span> <span class="toc-text">Idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">3.</span> <span class="toc-text">Solution</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h2 id="Problem_Description"><em>Problem Description</em></h2><p>Given two words word1 and word2, find the minimum number of steps required to convert word1 to word2. (each operation is counted as 1 step.)</p>
-<p>You have the following 3 operations permitted on a word:</p>
-<p>a) Insert a character<br>b) Delete a character<br>c) Replace a character</p>
-<h2 id="Idea"><em>Idea</em></h2><p>This problem can be splitted for solving the edit distance between any substring of word1 and word2. Therefore, we can leverage dp. </p>
-<p>Specifically, we initialize a two dimensional dp matrix where dp[i][j] means the edit distance between word1.substring(0,i) and word2.substring(0,j). If the character at index i of word1 equals to the character at index j of word2, then dp[i][j] equals to dp[i-1][j-1]. Otherwise, dp[i][j] is the minimum of dp[i-1][j] (delete), dp[i][j-1] (insert) and dp[i-1][j-1] (replace) plus 1.</p>
-<h2 id="Solution"><em>Solution</em></h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(String word1, String word2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = word1.length();</span><br><span class="line">    <span class="keyword">int</span> n = word2.length();</span><br><span class="line">    <span class="keyword">if</span> (word1.equals(word2)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[m+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=m; i++)</span><br><span class="line">        dp[i][<span class="number">0</span>] = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;=n; j++)</span><br><span class="line">        dp[<span class="number">0</span>][j] = j;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=m; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;=n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (word1.charAt(i-<span class="number">1</span>) == word2.charAt(j-<span class="number">1</span>))</span><br><span class="line">                dp[i][j] = dp[i-<span class="number">1</span>][j-<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i][j] = Math.min(dp[i-<span class="number">1</span>][j],dp[i][j-<span class="number">1</span>]);</span><br><span class="line">                dp[i][j] = Math.min(dp[i][j], dp[i-<span class="number">1</span>][j-<span class="number">1</span>])+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[m][n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  
+		<p><a href="http://chuansong.me/n/1825561" target="_blank" rel="external">友盟分享 | 移动大数据平台架构思想以及实践经验</a><br>关键词：大数据平台架构</p>
+<p><a href="http://www.csdn.net/article/2015-06-25/2825056" target="_blank" rel="external">Tachyon：Spark生态系统中的分布式内存文件系统</a><br>关键词：Tachyan</p>
+<p><a href="http://www.csdn.net/article/2015-04-24/2824552" target="_blank" rel="external">Spark编程指南——Python版</a><br>关键词：Spark, Python</p>
+<p><a href="http://www.csdn.net/article/2015-06-02/2824823" target="_blank" rel="external">GC调优在Spark应用中的实践</a><br>关键词：Spark, garbage collection</p>
+<p><a href="http://www.csdn.net/article/2015-05-29/2824802" target="_blank" rel="external">黄洁：Intel Spark应用优化和实践经验</a><br>关键词：Spark优化</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/coding/">coding</a>
+  <a class="article-category-link" href="/categories/weekly-dynamics/">weekly dynamics</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/algorithm/">algorithm</a><a href="/tags/dp/">dp</a><a href="/tags/leetcode/">leetcode</a>
+  <span></span> <a href="/tags/spark/">spark</a><a href="/tags/spark-GC/">spark GC</a><a href="/tags/spark-optimization/">spark optimization</a>
   </div>
 
 </div>
@@ -120,7 +129,7 @@ You have the following 3 operations perm">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.flowrocky.com/2015/10/05/Edit-Distance/" data-title="Edit Distance | Flow Rock" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.flowrocky.com/2015/10/25/2015-10-19-2015-10-25/" data-title="2015-10-19 -- 2015-10-25 | Flow Rock" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -133,19 +142,11 @@ You have the following 3 operations perm">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/10/06/Numpy-note/" title="Numpy Note">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Numpy Note</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/10/03/Unique-Binary-Search-Trees/"  title="Unique Binary Search Trees">
+<a href="/2015/10/24/Python特殊语法：filter、map、reduce、lambda/"  title="Python特殊语法：filter、map、reduce、lambda">
  <strong>下一篇：</strong><br/> 
- <span>Unique Binary Search Trees
+ <span>Python特殊语法：filter、map、reduce、lambda
 </span>
 </a>
 </div>
@@ -166,7 +167,7 @@ You have the following 3 operations perm">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem_Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Idea"><span class="toc-number">2.</span> <span class="toc-text">Idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">3.</span> <span class="toc-text">Solution</span></a></li></ol>
+ 
  
   </div>
 
