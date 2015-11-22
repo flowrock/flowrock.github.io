@@ -4,29 +4,32 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Python特殊语法：filter、map、reduce、lambda | Flow Rock</title>
+    <title>Weekly Dynamics 11/16/2015-11/22/2015 | Flow Rock</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Ruoyan Liu">
     
 
     
-    <meta name="description" content="注：转自http://blog.csdn.net/u014539401/article/details/45741721.
-Python内置了一些非常有趣但非常有用的函数，充分体现了Python的语言魅力！
-filter(function, sequence)对sequence中的item依次执行function(item)，将执行结果为True的item组成一个List/String/Tuple">
+    <meta name="description" content="Android应用启动优化:一种DelayLoad的实现和原理关键词：Android启动加载优化
+有一台以上的服务器，都有理由来尝试云操作系统关键词：Mesos任务调度管理
+Android 热补丁动态修复框架小结关键词：Android热修复
+Android打包的那些事关键词：Android打包，apk">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python特殊语法：filter、map、reduce、lambda">
-<meta property="og:url" content="http://www.flowrocky.com/2015/10/24/Python特殊语法：filter、map、reduce、lambda/index.html">
+<meta property="og:title" content="Weekly Dynamics 11/16/2015-11/22/2015">
+<meta property="og:url" content="http://www.flowrocky.com/2015/11/22/Weekly-Dynamics-11-16-2015-11-22-2015/index.html">
 <meta property="og:site_name" content="Flow Rock">
-<meta property="og:description" content="注：转自http://blog.csdn.net/u014539401/article/details/45741721.
-Python内置了一些非常有趣但非常有用的函数，充分体现了Python的语言魅力！
-filter(function, sequence)对sequence中的item依次执行function(item)，将执行结果为True的item组成一个List/String/Tuple">
-<meta property="og:updated_time" content="2015-10-25T01:27:45.000Z">
+<meta property="og:description" content="Android应用启动优化:一种DelayLoad的实现和原理关键词：Android启动加载优化
+有一台以上的服务器，都有理由来尝试云操作系统关键词：Mesos任务调度管理
+Android 热补丁动态修复框架小结关键词：Android热修复
+Android打包的那些事关键词：Android打包，apk">
+<meta property="og:updated_time" content="2015-11-22T21:57:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python特殊语法：filter、map、reduce、lambda">
-<meta name="twitter:description" content="注：转自http://blog.csdn.net/u014539401/article/details/45741721.
-Python内置了一些非常有趣但非常有用的函数，充分体现了Python的语言魅力！
-filter(function, sequence)对sequence中的item依次执行function(item)，将执行结果为True的item组成一个List/String/Tuple">
+<meta name="twitter:title" content="Weekly Dynamics 11/16/2015-11/22/2015">
+<meta name="twitter:description" content="Android应用启动优化:一种DelayLoad的实现和原理关键词：Android启动加载优化
+有一台以上的服务器，都有理由来尝试云操作系统关键词：Mesos任务调度管理
+Android 热补丁动态修复框架小结关键词：Android热修复
+Android打包的那些事关键词：Android打包，apk">
 
     
     <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
@@ -76,14 +79,14 @@ filter(function, sequence)对sequence中的item依次执行function(item)，将�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/24/Python特殊语法：filter、map、reduce、lambda/" title="Python特殊语法：filter、map、reduce、lambda" itemprop="url">Python特殊语法：filter、map、reduce、lambda</a>
+      <a href="/2015/11/22/Weekly-Dynamics-11-16-2015-11-22-2015/" title="Weekly Dynamics 11/16/2015-11/22/2015" itemprop="url">Weekly Dynamics 11/16/2015-11/22/2015</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-25T01:19:29.000Z" itemprop="datePublished"> Published 2015-10-24</time>
+    <time datetime="2015-11-22T16:41:56.000Z" itemprop="datePublished"> Published 2015-11-22</time>
     
   </p>
 </header>
@@ -92,28 +95,28 @@ filter(function, sequence)对sequence中的item依次执行function(item)，将�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#filter(function,_sequence)"><span class="toc-number">1.</span> <span class="toc-text">filter(function, sequence)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map(function,_sequence)"><span class="toc-number">2.</span> <span class="toc-text">map(function, sequence)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reduce(function,_sequence,_starting_value)"><span class="toc-number">3.</span> <span class="toc-text">reduce(function, sequence, starting_value)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda"><span class="toc-number">4.</span> <span class="toc-text">lambda</span></a></li></ol>
+			
 		
 		</div>
 		
-		<p>注：转自<a href="http://blog.csdn.net/u014539401/article/details/45741721" target="_blank" rel="external">http://blog.csdn.net/u014539401/article/details/45741721</a>.</p>
-<p>Python内置了一些非常有趣但非常有用的函数，充分体现了Python的语言魅力！</p>
-<h3 id="filter(function,_sequence)"><strong>filter(function, sequence)</strong></h3><p>对sequence中的item依次执行function(item)，将执行结果为True的item组成一个List/String/Tuple（取决于sequence的类型）返回：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x % <span class="number">2</span> != <span class="number">0</span> <span class="keyword">and</span> x % <span class="number">3</span> != <span class="number">0</span> </span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>filter(f, range(<span class="number">2</span>, <span class="number">25</span>)) </span><br><span class="line">[<span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x != <span class="string">'a'</span> </span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>filter(f, <span class="string">"abcdef"</span>) </span><br><span class="line"><span class="string">'bcdef'</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="map(function,_sequence)"><strong>map(function, sequence)</strong></h3><p>对sequence中的item依次执行function(item)，见执行结果组成一个List返回：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">cube</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x*x*x </span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>map(cube, range(<span class="number">1</span>, <span class="number">11</span>)) </span><br><span class="line">[<span class="number">1</span>, <span class="number">8</span>, <span class="number">27</span>, <span class="number">64</span>, <span class="number">125</span>, <span class="number">216</span>, <span class="number">343</span>, <span class="number">512</span>, <span class="number">729</span>, <span class="number">1000</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">cube</span><span class="params">(x)</span> :</span> <span class="keyword">return</span> x + x </span><br><span class="line"><span class="prompt">... </span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>map(cube , <span class="string">"abcde"</span>) </span><br><span class="line">[<span class="string">'aa'</span>, <span class="string">'bb'</span>, <span class="string">'cc'</span>, <span class="string">'dd'</span>, <span class="string">'ee'</span>]</span><br></pre></td></tr></table></figure></p>
-<p>另外map也支持多个sequence，这就要求function也支持相应数量的参数输入：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span> <span class="keyword">return</span> x+y </span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>map(add, range(<span class="number">8</span>), range(<span class="number">8</span>)) </span><br><span class="line">[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">14</span>]</span><br></pre></td></tr></table></figure></p>
-<h3 id="reduce(function,_sequence,_starting_value)"><strong>reduce(function, sequence, starting_value)</strong></h3><p>对sequence中的item顺序迭代调用function，如果有starting_value，还可以作为初始值调用，例如可以用来对List求和：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span> <span class="keyword">return</span> x + y </span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>reduce(add, range(<span class="number">1</span>, <span class="number">11</span>)) </span><br><span class="line"><span class="number">55</span> （注：<span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>+<span class="number">4</span>+<span class="number">5</span>+<span class="number">6</span>+<span class="number">7</span>+<span class="number">8</span>+<span class="number">9</span>+<span class="number">10</span>）</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>reduce(add, range(<span class="number">1</span>, <span class="number">11</span>), <span class="number">20</span>) </span><br><span class="line"><span class="number">75</span> （注：<span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>+<span class="number">4</span>+<span class="number">5</span>+<span class="number">6</span>+<span class="number">7</span>+<span class="number">8</span>+<span class="number">9</span>+<span class="number">10</span>+<span class="number">20</span>）</span><br></pre></td></tr></table></figure></p>
-<h3 id="lambda"><strong>lambda</strong></h3><p>这是Python支持一种有趣的语法，它允许你快速定义单行的最小函数，类似与C语言中的宏，这些叫做lambda的函数，是从LISP借用来的，可以用在任何需要函数的地方：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>g = <span class="keyword">lambda</span> x: x * <span class="number">2</span> </span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>g(<span class="number">3</span>) </span><br><span class="line"><span class="number">6</span> </span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>(<span class="keyword">lambda</span> x: x * <span class="number">2</span>)(<span class="number">3</span>) </span><br><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure></p>
-<p>我们也可以把filter map reduce 和lambda结合起来用，函数就可以简单的写成一行。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">kmpathes = filter(<span class="keyword">lambda</span> kmpath: kmpath,                  </span><br><span class="line">map(<span class="keyword">lambda</span> kmpath: string.strip(kmpath),</span><br><span class="line">string.split(l, <span class="string">':'</span>)))</span><br></pre></td></tr></table></figure></p>
-<p>看起来麻烦，其实就像用语言来描述问题一样，非常优雅。<br>对 l 中的所有元素以’:’做分割，得出一个列表。对这个列表的每一个元素做字符串strip，形成一个列表。对这个列表的每一个元素做直接返回操作(这个地方可以加上过滤条件限制)，最终获得一个字符串被’:’分割的列表，列表中的每一个字符串都做了strip，并可以对特殊字符串过滤。</p>
+		<p><a href="http://androidperformance.com/2015/11/18/Android-app-lunch-optimize-delay-load.html" target="_blank" rel="external">Android应用启动优化:一种DelayLoad的实现和原理</a><br>关键词：Android启动加载优化</p>
+<p><a href="https://linux.cn/article-6590-1.html?utm_source=weibo&amp;utm_medium=weibo" target="_blank" rel="external">有一台以上的服务器，都有理由来尝试云操作系统</a><br>关键词：Mesos任务调度管理</p>
+<p><a href="http://blog.csdn.net/lmj623565791/article/details/49883661" target="_blank" rel="external">Android 热补丁动态修复框架小结</a><br>关键词：Android热修复</p>
+<p><a href="http://www.jayfeng.com/2015/11/07/Android%E6%89%93%E5%8C%85%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" target="_blank" rel="external">Android打包的那些事</a><br>关键词：Android打包，apk</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/weekly-dynamics/">weekly dynamics</a>
+</div>
+
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/python/">python</a>
+  <span></span> <a href="/tags/Android/">Android</a>
   </div>
 
 </div>
@@ -122,7 +125,7 @@ filter(function, sequence)对sequence中的item依次执行function(item)，将�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.flowrocky.com/2015/10/24/Python特殊语法：filter、map、reduce、lambda/" data-title="Python特殊语法：filter、map、reduce、lambda | Flow Rock" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.flowrocky.com/2015/11/22/Weekly-Dynamics-11-16-2015-11-22-2015/" data-title="Weekly Dynamics 11/16/2015-11/22/2015 | Flow Rock" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -135,19 +138,11 @@ filter(function, sequence)对sequence中的item依次执行function(item)，将�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/10/25/2015-10-19-2015-10-25/" title="Weekly Dynamics 10/19/2015-10/25/2015">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Weekly Dynamics 10/19/2015-10/25/2015</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/10/23/Hadoop-I-O-Note/"  title="Hadoop I/O Note">
+<a href="/2015/11/10/Weekly-Dynamics-11-10-2015-11-17-2015/"  title="Weekly Dynamics 11/9/2015-11/15/2015">
  <strong>下一篇：</strong><br/> 
- <span>Hadoop I/O Note
+ <span>Weekly Dynamics 11/9/2015-11/15/2015
 </span>
 </a>
 </div>
@@ -168,7 +163,7 @@ filter(function, sequence)对sequence中的item依次执行function(item)，将�
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#filter(function,_sequence)"><span class="toc-number">1.</span> <span class="toc-text">filter(function, sequence)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map(function,_sequence)"><span class="toc-number">2.</span> <span class="toc-text">map(function, sequence)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reduce(function,_sequence,_starting_value)"><span class="toc-number">3.</span> <span class="toc-text">reduce(function, sequence, starting_value)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda"><span class="toc-number">4.</span> <span class="toc-text">lambda</span></a></li></ol>
+ 
  
   </div>
 
