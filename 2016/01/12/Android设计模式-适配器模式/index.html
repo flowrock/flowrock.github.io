@@ -4,26 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Edit Distance | Flow Rock</title>
+    <title>Android设计模式-适配器模式 | Flow Rock</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Ruoyan Liu">
     
 
     
-    <meta name="description" content="Problem DescriptionGiven two words word1 and word2, find the minimum number of steps required to convert word1 to word2. (each operation is counted as 1 step.)
-You have the following 3 operations perm">
+    <meta name="description" content="解释适配器模式把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口不匹配而无法在一起工作的两个类能够在一起工作。
+例子类适配器模式/** * Target角色 */public interface FiveVolt &amp;#123;    public int getVolt5();&amp;#125;/** * Adaptee角色,需要被转换的对象 */public class Volt220 &amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Edit Distance">
-<meta property="og:url" content="http://www.flowrocky.com/2015/10/05/Edit-Distance/index.html">
+<meta property="og:title" content="Android设计模式-适配器模式">
+<meta property="og:url" content="http://www.flowrocky.com/2016/01/12/Android设计模式-适配器模式/index.html">
 <meta property="og:site_name" content="Flow Rock">
-<meta property="og:description" content="Problem DescriptionGiven two words word1 and word2, find the minimum number of steps required to convert word1 to word2. (each operation is counted as 1 step.)
-You have the following 3 operations perm">
-<meta property="og:updated_time" content="2015-10-05T17:13:36.000Z">
+<meta property="og:description" content="解释适配器模式把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口不匹配而无法在一起工作的两个类能够在一起工作。
+例子类适配器模式/** * Target角色 */public interface FiveVolt &amp;#123;    public int getVolt5();&amp;#125;/** * Adaptee角色,需要被转换的对象 */public class Volt220 &amp;">
+<meta property="og:updated_time" content="2016-01-12T21:58:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Edit Distance">
-<meta name="twitter:description" content="Problem DescriptionGiven two words word1 and word2, find the minimum number of steps required to convert word1 to word2. (each operation is counted as 1 step.)
-You have the following 3 operations perm">
+<meta name="twitter:title" content="Android设计模式-适配器模式">
+<meta name="twitter:description" content="解释适配器模式把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口不匹配而无法在一起工作的两个类能够在一起工作。
+例子类适配器模式/** * Target角色 */public interface FiveVolt &amp;#123;    public int getVolt5();&amp;#125;/** * Adaptee角色,需要被转换的对象 */public class Volt220 &amp;">
 
     
     <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
@@ -73,14 +73,14 @@ You have the following 3 operations perm">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/05/Edit-Distance/" title="Edit Distance" itemprop="url">Edit Distance</a>
+      <a href="/2016/01/12/Android设计模式-适配器模式/" title="Android设计模式-适配器模式" itemprop="url">Android设计模式-适配器模式</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Ruoyan Liu" target="_blank" itemprop="author">Ruoyan Liu</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-05T17:04:53.000Z" itemprop="datePublished"> Published 2015-10-05</time>
+    <time datetime="2016-01-12T18:48:12.000Z" itemprop="datePublished"> Published 2016-01-12</time>
     
   </p>
 </header>
@@ -89,29 +89,41 @@ You have the following 3 operations perm">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem_Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Idea"><span class="toc-number">2.</span> <span class="toc-text">Idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">3.</span> <span class="toc-text">Solution</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#解释"><span class="toc-number">1.</span> <span class="toc-text">解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子"><span class="toc-number">2.</span> <span class="toc-text">例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类适配器模式"><span class="toc-number">2.1.</span> <span class="toc-text">类适配器模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象适配器模式"><span class="toc-number">2.2.</span> <span class="toc-text">对象适配器模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类适配器和对象适配器的权衡"><span class="toc-number">2.3.</span> <span class="toc-text">类适配器和对象适配器的权衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Android_ListView中的Adapter"><span class="toc-number">2.4.</span> <span class="toc-text">Android ListView中的Adapter</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优缺点"><span class="toc-number">3.</span> <span class="toc-text">优缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点"><span class="toc-number">3.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点"><span class="toc-number">3.2.</span> <span class="toc-text">缺点</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="Problem_Description"><em>Problem Description</em></h2><p>Given two words word1 and word2, find the minimum number of steps required to convert word1 to word2. (each operation is counted as 1 step.)</p>
-<p>You have the following 3 operations permitted on a word:</p>
-<p>a) Insert a character<br>b) Delete a character<br>c) Replace a character</p>
-<h2 id="Idea"><em>Idea</em></h2><p>This problem can be splitted for solving the edit distance between any substring of word1 and word2. Therefore, we can leverage dp. </p>
-<p>Specifically, we initialize a two dimensional dp matrix where dp[i][j] means the edit distance between word1.substring(0,i) and word2.substring(0,j). If the character at index i of word1 equals to the character at index j of word2, then dp[i][j] equals to dp[i-1][j-1]. Otherwise, dp[i][j] is the minimum of dp[i-1][j] (delete), dp[i][j-1] (insert) and dp[i-1][j-1] (replace) plus 1.</p>
-<h2 id="Solution"><em>Solution</em></h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(String word1, String word2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = word1.length();</span><br><span class="line">    <span class="keyword">int</span> n = word2.length();</span><br><span class="line">    <span class="keyword">if</span> (word1.equals(word2)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[m+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=m; i++)</span><br><span class="line">        dp[i][<span class="number">0</span>] = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;=n; j++)</span><br><span class="line">        dp[<span class="number">0</span>][j] = j;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=m; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;=n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (word1.charAt(i-<span class="number">1</span>) == word2.charAt(j-<span class="number">1</span>))</span><br><span class="line">                dp[i][j] = dp[i-<span class="number">1</span>][j-<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i][j] = Math.min(dp[i-<span class="number">1</span>][j],dp[i][j-<span class="number">1</span>]);</span><br><span class="line">                dp[i][j] = Math.min(dp[i][j], dp[i-<span class="number">1</span>][j-<span class="number">1</span>])+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[m][n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  
+		<h2 id="解释"><em>解释</em></h2><p>适配器模式把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口不匹配而无法在一起工作的两个类能够在一起工作。</p>
+<h2 id="例子"><em>例子</em></h2><h3 id="类适配器模式"><strong>类适配器模式</strong></h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Target角色</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FiveVolt</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getVolt5</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Adaptee角色,需要被转换的对象</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Volt220</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getVolt220</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">220</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// adapter角色</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassAdapter</span> <span class="keyword">extends</span> <span class="title">Volt220</span> <span class="keyword">implements</span> <span class="title">FiveVolt</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getVolt5</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="对象适配器模式"><strong>对象适配器模式</strong></h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Target角色</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FiveVolt</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getVolt5</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Adaptee角色,需要被转换的对象</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Volt220</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getVolt220</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">220</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对象适配器模式</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ObjectAdapter</span> <span class="keyword">implements</span> <span class="title">FiveVolt</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Volt220 mVolt220;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ObjectAdapter</span><span class="params">(Volt220 adaptee)</span> </span>&#123;</span><br><span class="line">        mVolt220 = adaptee;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getVolt220</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mVolt220.getVolt220();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getVolt5</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="类适配器和对象适配器的权衡"><strong>类适配器和对象适配器的权衡</strong></h3><ol>
+<li>类适配器使用对象继承的方式，是静态的定义方式；而对象适配器使用对象组合的方式，是动态组合的方式。</li>
+<li>对于类适配器，由于适配器直接继承了Adaptee，使得适配器不能和Adaptee的子类一起工作，因为继承是静态的关系，当适配器继承了Adaptee后，就不可能再去处理Adaptee的子类了。对于对象适配器，一个适配器可以把多种不同的源适配到同一个目标。换言之，同一个适配器可以把源类和它的子类都适配到目标接口。因为对象适配器采用的是对象组合的关系，只要对象类型正确，是不是子类都无所谓。</li>
+<li>对于类适配器，适配器可以重定义Adaptee的部分行为，相当于子类覆盖父类的部分实现方法。对于对象适配器，要重定义Adaptee的行为比较困难，这种情况下，需要定义Adaptee的子类来实现重定义，然后让适配器组合子类。虽然重定义Adaptee的行为比较困难，但是想要增加一些新的行为则方便的很，而且新增加的行为可同时适用于所有的源。</li>
+<li>对于类适配器，仅仅引入了一个对象，并不需要额外的引用来间接得到Adaptee。对于对象适配器，需要额外的引用来间接得到Adaptee。</li>
+</ol>
+<h3 id="Android_ListView中的Adapter"><strong>Android ListView中的Adapter</strong></h3><p>Android ListView需要把各种可能的数据和用户定义的view准确无误的显示在屏幕上，而ListView并不关心数据本身是什么，只关心在哪个list position显示哪个view，因此需要适配器去专门处理数据并向ListView提供最重要的view。</p>
+<h2 id="优缺点"><em>优缺点</em></h2><h3 id="优点"><strong>优点</strong></h3><ol>
+<li><p>更好的复用性<br>系统需要使用现有的类，而此类的接口不符合系统的需要。那么通过适配器模式就可以让这些功能得到更好的复用。</p>
+</li>
+<li><p>更好的扩展性<br>在实现适配器功能的时候，可以调用自己开发的功能，从而自然地扩展系统的功能。</p>
+</li>
+</ol>
+<h3 id="缺点"><strong>缺点</strong></h3><p>过多的使用适配器，会让系统非常零乱，不易整体进行把握。比如，明明看到调用的是A接口，其实内部被适配成了B接口的实现，一个系统如果太多出现这种情况，无异于一场灾难。因此如果不是很有必要，可以不使用适配器，而是直接对系统进行重构。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/coding/">coding</a>
+  <a class="article-category-link" href="/categories/Android设计模式/">Android设计模式</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/algorithm/">algorithm</a><a href="/tags/dp/">dp</a><a href="/tags/leetcode/">leetcode</a>
+  <span></span> <a href="/tags/Android/">Android</a>
   </div>
 
 </div>
@@ -120,7 +132,7 @@ You have the following 3 operations perm">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.flowrocky.com/2015/10/05/Edit-Distance/" data-title="Edit Distance | Flow Rock" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.flowrocky.com/2016/01/12/Android设计模式-适配器模式/" data-title="Android设计模式-适配器模式 | Flow Rock" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -133,19 +145,11 @@ You have the following 3 operations perm">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/10/06/Numpy-note/" title="Numpy Note">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Numpy Note</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/10/03/Unique-Binary-Search-Trees/"  title="Unique Binary Search Trees">
+<a href="/2016/01/11/Android设计模式-模板方法模式/"  title="Android设计模式-模板方法模式">
  <strong>下一篇：</strong><br/> 
- <span>Unique Binary Search Trees
+ <span>Android设计模式-模板方法模式
 </span>
 </a>
 </div>
@@ -166,7 +170,7 @@ You have the following 3 operations perm">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem_Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Idea"><span class="toc-number">2.</span> <span class="toc-text">Idea</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">3.</span> <span class="toc-text">Solution</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#解释"><span class="toc-number">1.</span> <span class="toc-text">解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子"><span class="toc-number">2.</span> <span class="toc-text">例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类适配器模式"><span class="toc-number">2.1.</span> <span class="toc-text">类适配器模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象适配器模式"><span class="toc-number">2.2.</span> <span class="toc-text">对象适配器模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类适配器和对象适配器的权衡"><span class="toc-number">2.3.</span> <span class="toc-text">类适配器和对象适配器的权衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Android_ListView中的Adapter"><span class="toc-number">2.4.</span> <span class="toc-text">Android ListView中的Adapter</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优缺点"><span class="toc-number">3.</span> <span class="toc-text">优缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点"><span class="toc-number">3.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点"><span class="toc-number">3.2.</span> <span class="toc-text">缺点</span></a></li></ol></li></ol>
  
   </div>
 

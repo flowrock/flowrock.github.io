@@ -11,16 +11,31 @@
     
 
     
-    <meta name="description">
+    <meta name="description" content="解释原型模式属于对象的创建模式。通过给出一个原型对象来指明所有创建的对象的类型，然后用复制这个原型对象的办法创建出更多同类型的对象。这就是选型模式的用意。
+使用场景：
+
+类初始化需要消化非常多的资源，这个资源包括数据、硬件资源等，通过原型拷贝避免这些消耗
+通过 new 产生一个对象需要非常繁琐的数据准备或访问权限，则可以使用原型模式
+一个对象需要提供给其他对象访问，而且各个调用者可能都需要修改其值">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android设计模式-原型模式">
 <meta property="og:url" content="http://www.flowrocky.com/2016/01/11/Android设计模式-原型模式/index.html">
 <meta property="og:site_name" content="Flow Rock">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-01-11T19:58:59.000Z">
+<meta property="og:description" content="解释原型模式属于对象的创建模式。通过给出一个原型对象来指明所有创建的对象的类型，然后用复制这个原型对象的办法创建出更多同类型的对象。这就是选型模式的用意。
+使用场景：
+
+类初始化需要消化非常多的资源，这个资源包括数据、硬件资源等，通过原型拷贝避免这些消耗
+通过 new 产生一个对象需要非常繁琐的数据准备或访问权限，则可以使用原型模式
+一个对象需要提供给其他对象访问，而且各个调用者可能都需要修改其值">
+<meta property="og:updated_time" content="2016-01-11T21:51:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android设计模式-原型模式">
-<meta name="twitter:description">
+<meta name="twitter:description" content="解释原型模式属于对象的创建模式。通过给出一个原型对象来指明所有创建的对象的类型，然后用复制这个原型对象的办法创建出更多同类型的对象。这就是选型模式的用意。
+使用场景：
+
+类初始化需要消化非常多的资源，这个资源包括数据、硬件资源等，通过原型拷贝避免这些消耗
+通过 new 产生一个对象需要非常繁琐的数据准备或访问权限，则可以使用原型模式
+一个对象需要提供给其他对象访问，而且各个调用者可能都需要修改其值">
 
     
     <link rel="alternative" href="/atom.xml" title="Flow Rock" type="application/atom+xml">
@@ -86,15 +101,48 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#解释"><span class="toc-number">1.</span> <span class="toc-text">解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子"><span class="toc-number">2.</span> <span class="toc-text">例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例1"><span class="toc-number">2.1.</span> <span class="toc-text">例1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例2"><span class="toc-number">2.2.</span> <span class="toc-text">例2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优缺点"><span class="toc-number">3.</span> <span class="toc-text">优缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点"><span class="toc-number">3.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点"><span class="toc-number">3.2.</span> <span class="toc-text">缺点</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		  
+		<h2 id="解释"><em>解释</em></h2><p>原型模式属于对象的创建模式。通过给出一个原型对象来指明所有创建的对象的类型，然后用复制这个原型对象的办法创建出更多同类型的对象。这就是选型模式的用意。</p>
+<p>使用场景：</p>
+<ol>
+<li>类初始化需要消化非常多的资源，这个资源包括数据、硬件资源等，通过原型拷贝避免这些消耗</li>
+<li>通过 new 产生一个对象需要非常繁琐的数据准备或访问权限，则可以使用原型模式</li>
+<li>一个对象需要提供给其他对象访问，而且各个调用者可能都需要修改其值时，可以考虑使用原型模式拷贝多个对象供调用者使用，即保护性拷贝</li>
+</ol>
+<h2 id="例子"><em>例子</em></h2><h3 id="例1"><strong>例1</strong></h3><p><strong><em>登记形式的原型模式</em></strong>，需要一个原型管理器PrototypeManager来记录每一个被创建的对象。<br>首先定义抽象原型角色<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Prototype</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Prototype <span class="title">clone</span><span class="params">()</span></span>; <span class="comment">//clone()是这个原型模式的核心</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体原型角色<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototype</span> <span class="keyword">implements</span> <span class="title">Prototype</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Prototype <span class="title">clone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ConcretePrototype prototype = <span class="keyword">new</span> ConcretePrototype();</span><br><span class="line">        prototype.setName(<span class="keyword">this</span>.name); <span class="comment">//注意使用的是this.name，而this在clone()被调用前已被实例化</span></span><br><span class="line">        <span class="keyword">return</span> prototype;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>定义原型管理器<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrototypeManager</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String,Prototype&gt; map = <span class="keyword">new</span> HashMap&lt;String,Prototype&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">PrototypeManager</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setPrototype</span><span class="params">(String prototypeId, Prototype prototype)</span> </span>&#123;</span><br><span class="line">        map.put(prototypeId, prototype);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">removePrototype</span><span class="params">(String prototypeId)</span> </span>&#123;</span><br><span class="line">        map.remove(prototypeId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> Prototype <span class="title">getPrototype</span><span class="params">(String prototypeId)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Prototype prototype = map.get(prototype);</span><br><span class="line">        <span class="keyword">if</span> (prototype == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"原型还未被注册或已被销毁"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prototype;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Client角色<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Prototype p1 = <span class="keyword">new</span> ConcretePrototype1();</span><br><span class="line">PrototypeManager.setPrototype(<span class="string">"p1"</span>, p1);</span><br><span class="line"><span class="comment">//获取原型来创建对象</span></span><br><span class="line">Prototype p3 = PrototypeManager.getPrototype(<span class="string">"p1"</span>).clone();</span><br><span class="line">p3.setName(<span class="string">"张三"</span>);</span><br><span class="line">System.out.println(<span class="string">"第一个实例："</span> + p3);</span><br><span class="line"><span class="comment">//有人动态的切换了实现</span></span><br><span class="line">Prototype p2 = <span class="keyword">new</span> ConcretePrototype2();</span><br><span class="line">PrototypeManager.setPrototype(<span class="string">"p1"</span>, p2);</span><br><span class="line"><span class="comment">//重新获取原型来创建对象</span></span><br><span class="line">Prototype p4 = PrototypeManager.getPrototype(<span class="string">"p1"</span>).clone();</span><br><span class="line">p4.setName(<span class="string">"李四"</span>);</span><br><span class="line">System.out.println(<span class="string">"第二个实例："</span> + p4);</span><br><span class="line"><span class="comment">//有人注销了这个原型</span></span><br><span class="line">PrototypeManager.removePrototype(<span class="string">"p1"</span>);</span><br><span class="line"><span class="comment">//再次获取原型来创建对象</span></span><br><span class="line">Prototype p5 = PrototypeManager.getPrototype(<span class="string">"p1"</span>).clone();</span><br><span class="line">p5.setName(<span class="string">"王五"</span>);</span><br><span class="line">System.out.println(<span class="string">"第三个实例："</span> + p5);</span><br></pre></td></tr></table></figure></p>
+<h3 id="例2"><strong>例2</strong></h3><p><strong><em>Java中的克隆方法</em></strong></p>
+<p><strong><strong>浅克隆</strong></strong><br>浅克隆是指除了primitive类型和String外，对象内引用的其他Object只复制reference而不是对象本身。<br>继承Cloneable并覆盖clone()来实现浅克隆。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordDocument</span> <span class="keyword">implements</span> <span class="title">Cloneable</span> </span>&#123;  </span><br><span class="line">    <span class="comment">/** </span><br><span class="line">     * 文本 </span><br><span class="line">     */</span>  </span><br><span class="line">    <span class="keyword">private</span> String mText;  </span><br><span class="line">    <span class="comment">/** </span><br><span class="line">     * 图片名列表 </span><br><span class="line">     */</span>  </span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;String&gt; mImages = <span class="keyword">new</span> ArrayList&lt;String&gt;();  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">WordDocument</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/** </span><br><span class="line">     * 克隆对象 </span><br><span class="line">     */</span>  </span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> WordDocument <span class="title">clone</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            WordDocument doc = (WordDocument) <span class="keyword">super</span>.clone();  </span><br><span class="line">            doc.mText = <span class="keyword">this</span>.mText;  </span><br><span class="line">            doc.mImages = <span class="keyword">this</span>.mImages;  </span><br><span class="line">            <span class="keyword">return</span> doc;  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getText</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> mText;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setText</span><span class="params">(String mText)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.mText = mText;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;string&gt; <span class="title">getImages</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> mImages;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/** </span><br><span class="line">     * <span class="doctag">@param</span> img </span><br><span class="line">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addImage</span><span class="params">(String img)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.mImages.add(img);  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意浅克隆出来的新对象不会执行构造方法。这也是super.clone()和new一个新对象的区别，但这样做速度会很快。</strong><br>对于这个类里面的mImages对象，因为是List对象只复制引用，因此无论在原体还是克隆体操作，都会影响到原体和所有克隆体，即浅克隆的含义。</p>
+<p><strong><strong>深克隆</strong></strong><br>深克隆同时要克隆对象引用的其他对象。</p>
+<p><strong><em>利用序列化实现深度克隆</em></strong><br>把对象写到流里的过程是序列化(Serialization)过程；而把对象从流中读出来的过程则叫反序列化(Deserialization)过程。应当指出的是，写到流里的是对象的一个拷贝，而原对象仍然存在于JVM里面。</p>
+<p>在Java语言里深度克隆一个对象，常常可以先使对象实现Serializable接口，然后把对象（实际上只是对象的拷贝）写到一个流里（序列化），再从流里读回来（反序列化），便可以重建对象。<strong>注意，能够深克隆的对象和其引用的对象都需要继承Serializable。</strong><br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">deepClone</span><span class="params">()</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">    <span class="comment">//将对象写到流里</span></span><br><span class="line">    ByteArrayOutputStream bos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">    ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(bos);</span><br><span class="line">    cos.writeObject(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//从流里读回来</span></span><br><span class="line">    ByteArrayInputStream bis = <span class="keyword">new</span> ByteArrayInputStream(bos.toByteArray());</span><br><span class="line">    ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(bis);</span><br><span class="line">    <span class="keyword">return</span> ois.readObject();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意有些对象如线程对象或socket对象是不能简单复制或共享，需要把这些对象设成transient不予赋值。</p>
+<h2 id="优缺点"><em>优缺点</em></h2><h3 id="优点"><strong>优点</strong></h3><ol>
+<li>原型模式允许在运行时动态改变具体的实现类型。原型模式可以在运行期间，由客户来注册符合原型接口的实现类型，也可以动态地改变具体的实现类型，看起来接口没有任何变化，但其实运行的已经是另外一个类实例了。因为克隆一个原型就类似于实例化一个类。</li>
+<li>原型模式是在内存二进制流的拷贝，要比直接 new 一个对象性能好很多，特别是要在一个循环体内产生大量的对象时，原型模式可以更好地体现其优点。</li>
+</ol>
+<h3 id="缺点"><strong>缺点</strong></h3><p>原型模式最主要的缺点是每一个类都必须配备一个克隆方法。配备克隆方法需要对类的功能进行通盘考虑，这对于全新的类来说不是很难，而对于已经有的类不一定很容易，特别是当一个类引用不支持序列化的间接对象，或者引用含有循环结构的时候。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Android设计模式/">Android设计模式</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
 
 </div>
 
@@ -115,6 +163,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/01/11/Android设计模式-模板方法模式/" title="Android设计模式-模板方法模式">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Android设计模式-模板方法模式</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2016/01/10/Android设计模式-Builder模式/"  title="Android设计模式-Builder模式">
@@ -140,7 +196,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#解释"><span class="toc-number">1.</span> <span class="toc-text">解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子"><span class="toc-number">2.</span> <span class="toc-text">例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例1"><span class="toc-number">2.1.</span> <span class="toc-text">例1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例2"><span class="toc-number">2.2.</span> <span class="toc-text">例2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优缺点"><span class="toc-number">3.</span> <span class="toc-text">优缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点"><span class="toc-number">3.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点"><span class="toc-number">3.2.</span> <span class="toc-text">缺点</span></a></li></ol></li></ol>
  
   </div>
 
@@ -154,7 +210,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/Android设计模式/" title="Android设计模式">Android设计模式<sup>5</sup></a></li>
+			<li><a href="/categories/Android设计模式/" title="Android设计模式">Android设计模式<sup>8</sup></a></li>
 		  
 		
 		  
@@ -191,15 +247,15 @@
 		<ul class="clearfix">
 		
 			
+				<li><a href="/tags/Android/" title="Android">Android<sup>9</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/algorithm/" title="algorithm">algorithm<sup>7</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/python/" title="python">python<sup>6</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Android/" title="Android">Android<sup>6</sup></a></li>
 			
 		
 			
